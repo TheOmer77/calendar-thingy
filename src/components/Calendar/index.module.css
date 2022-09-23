@@ -1,0 +1,51 @@
+.calendar {
+  width: 16rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.calendar-header,
+.calendar-header > .arrow-switcher,
+.days-header,
+.week {
+  display: flex;
+  flex-direction: row;
+}
+
+.calendar-header {
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.calendar-header > .month {
+  margin: 0;
+}
+.calendar-header > .arrow-switcher > button {
+  font-size: 1.5rem;
+  width: 2rem;
+  height: 2rem;
+  font-family: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.calendar-header > .arrow-switcher > button:not(:last-of-type) {
+  margin-right: 0.25rem;
+}
+
+.days-header,
+.week {
+  width: 14rem;
+  justify-content: flex-start;
+}
+.days-header > .day,
+.week > .day {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
