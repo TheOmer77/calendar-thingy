@@ -1,9 +1,43 @@
 .calendar {
+  --button-color: rgba(0, 0, 0, 0);
+  --button-color--hover: rgba(0, 0, 0, 0.15);
+  --button-color--active: rgba(0, 0, 0, 0.25);
+  --button-text-color: rgba(0, 0, 0);
+  --button-text-color--disabled: rgba(0, 0, 0, 0.5);
+
   width: 16rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.calendar button {
+  color: inherit;
+  background-color: transparent;
+  border: none;
+  border-radius: 0.5rem;
+  color: var(--button-text-color);
+  font-size: inherit;
+  font-family: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.calendar button:focus-visible {
+  outline: none;
+  background-color: var(--button-color--hover);
+}
+@media (hover: hover) {
+  .calendar button:hover:not(:active):not(:disabled) {
+    background-color: var(--button-color--hover);
+  }
+}
+.calendar button:active:not(:disabled) {
+  background-color: var(--button-color--active);
+}
+.calendar button:disabled {
+  color: var(--button-text-color--disabled);
 }
 
 .calendar-header,
@@ -27,10 +61,6 @@
   font-size: 1.5rem;
   width: 2rem;
   height: 2rem;
-  font-family: inherit;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 .calendar-header > .arrow-switcher > button:not(:last-of-type) {
   margin-right: 0.25rem;
@@ -48,4 +78,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media (prefers-color-scheme: dark) {
+  .calendar {
+    --button-color: rgba(255, 255, 255, 0);
+    --button-color--hover: rgba(255, 255, 255, 0.15);
+    --button-color--active: rgba(255, 255, 255, 0.25);
+    --button-text-color: rgba(255, 255, 255);
+    --button-text-color--disabled: rgba(255, 255, 255, 0.5);
+  }
 }
