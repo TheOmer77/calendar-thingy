@@ -7,7 +7,7 @@ import './App.css';
 const today = new Date();
 
 const App = () => {
-  const [selectedDate, setSelectedDate] = useState<Date>(today);
+  const [selectedDate, setSelectedDate] = useState<Date>();
 
   return (
     <Calendar
