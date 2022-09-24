@@ -22,18 +22,22 @@ const Day = ({ date, className, ...props }: CalendarDayProps) => {
   );
 
   return (
-    <button
+    <div
       className={classNames(
         classes.day,
         selected && classes['day-selected'],
         className
       )}
-      onClick={() => onChange?.(date)}
-      disabled={(minDate && date < minDate) || (maxDate && date > maxDate)}
-      {...props}
     >
-      {date.getDate()}
-    </button>
+      <button
+        className={classes['day-button']}
+        onClick={() => onChange?.(date)}
+        disabled={(minDate && date < minDate) || (maxDate && date > maxDate)}
+        {...props}
+      >
+        {date.getDate()}
+      </button>
+    </div>
   );
 };
 

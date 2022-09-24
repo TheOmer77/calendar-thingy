@@ -15,7 +15,7 @@ const CalendarDaysHeader = ({
   return (
     <div className={classNames(classes['days-header'], className)} {...props}>
       {[...Array(7).keys()].map(key => (
-        <span key={key} className={classes.day}>
+        <span key={key} className={classes['day-label']}>
           {getWeekday(new Date(259200000 + 86400000 * key), locale)}
         </span>
       ))}

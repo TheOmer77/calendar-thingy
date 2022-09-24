@@ -11,7 +11,7 @@
   --button-text-color-primary: rgba(255, 255, 255);
   --button-text-color-primary--disabled: rgba(255, 255, 255, 0.5);
 
-  width: 16rem;
+  width: 19rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -22,7 +22,7 @@
   color: inherit;
   background-color: transparent;
   border: none;
-  border-radius: 1rem;
+  border-radius: 1.125rem;
   color: var(--button-text-color);
   font-size: inherit;
   font-family: inherit;
@@ -30,36 +30,36 @@
   justify-content: center;
   align-items: center;
 }
-.calendar button.day-selected {
+.calendar .day-selected > .day-button {
   background-color: var(--button-color-primary);
   color: var(--button-text-color-primary);
 }
 .calendar button:focus-visible,
-.calendar button.day-selected:focus-visible {
+.calendar .day-selected > .day-button:focus-visible {
   outline: none;
   background-color: var(--button-color--hover);
 }
-.calendar button.day-selected:focus-visible {
+.calendar .day-selected > .day-button:focus-visible {
   background-color: var(--button-color-primary--hover);
 }
 @media (hover: hover) {
   .calendar button:hover:not(:active):not(:disabled) {
     background-color: var(--button-color--hover);
   }
-  .calendar button.day-selected:hover:not(:active):not(:disabled) {
+  .calendar .day-selected > .day-button:hover:not(:active):not(:disabled) {
     background-color: var(--button-color-primary--hover);
   }
 }
 .calendar button:active:not(:disabled) {
   background-color: var(--button-color--active);
 }
-.calendar button.day-selected:active:not(:disabled) {
+.calendar .day-selected > .day-button:active:not(:disabled) {
   background-color: var(--button-color-primary--active);
 }
 .calendar button:disabled {
   color: var(--button-text-color--disabled);
 }
-.calendar button.day-selected:disabled {
+.calendar .day-selected > .day-button:disabled {
   color: var(--button-text-color-primary--disabled);
 }
 
@@ -72,10 +72,12 @@
 }
 
 .calendar-header {
-  width: 100%;
+  width: 19rem;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.5rem;
+  padding: 0 0.5rem;
+  box-sizing: border-box;
 }
 .calendar-header > .month {
   margin: 0;
@@ -91,16 +93,30 @@
 
 .days-header,
 .week {
-  width: 14rem;
+  width: 19rem;
   justify-content: flex-start;
 }
-.days-header > .day,
+.days-header > .day-label,
 .week > .day {
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.days-header > .day-label:not(:last-child),
+.week > .day:not(:last-child) {
+  margin-inline-end: 0.25rem;
+}
+.week > .day > .day-button {
+  width: 2.25rem;
+  height: 2.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 1;
 }
 
 @media (prefers-color-scheme: dark) {
