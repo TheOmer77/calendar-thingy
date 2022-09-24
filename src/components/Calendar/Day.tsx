@@ -15,7 +15,7 @@ interface CalendarDayProps
 }
 
 const Day = ({ date, className, ...props }: CalendarDayProps) => {
-  const { value, onChange } = useContext(calendarContext);
+  const { value, onChange, minDate, maxDate } = useContext(calendarContext);
   const selected = useMemo(
     () => value && getDateString(value) === getDateString(date),
     [date, value]
@@ -29,6 +29,7 @@ const Day = ({ date, className, ...props }: CalendarDayProps) => {
         className
       )}
       onClick={() => onChange?.(date)}
+      disabled={(minDate && date < minDate) || (maxDate && date > maxDate)}
       {...props}
     >
       {date.getDate()}

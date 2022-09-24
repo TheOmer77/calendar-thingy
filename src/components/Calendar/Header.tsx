@@ -22,7 +22,7 @@ const CalendarHeader = ({
   className,
   ...props
 }: CalendarHeaderProps) => {
-  const { viewedMonth, locale } = useContext(calendarContext);
+  const { viewedMonth, locale, minDate, maxDate } = useContext(calendarContext);
 
   return (
     <div
@@ -36,8 +36,20 @@ const CalendarHeader = ({
         }).format(new Date(...viewedMonth))}
       </h3>
       <div className={classes['arrow-switcher']}>
-        <button onClick={onPrevClick}>&#8249;</button>
-        <button onClick={onNextClick}>&#8250;</button>
+        <button
+          onClick={onPrevClick}
+          disabled={minDate && new Date(...viewedMonth, 0) < minDate}
+        >
+          &#8249;
+        </button>
+        <button
+          onClick={onNextClick}
+          disabled={
+            maxDate && new Date(viewedMonth[0], viewedMonth[1] + 1, 0) > maxDate
+          }
+        >
+          &#8250;
+        </button>
       </div>
     </div>
   );

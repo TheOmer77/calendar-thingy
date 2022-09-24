@@ -21,6 +21,8 @@ export interface CalendarProps
   value?: Date;
   onChange?: (date: Date) => void;
   locale?: string;
+  minDate?: Date;
+  maxDate?: Date;
 }
 
 const Calendar = ({
@@ -29,6 +31,8 @@ const Calendar = ({
     return;
   },
   locale = 'en-US',
+  minDate,
+  maxDate,
   className,
   ...props
 }: CalendarProps) => {
@@ -55,7 +59,9 @@ const Calendar = ({
     );
 
   return (
-    <calendarContext.Provider value={{ locale, onChange, value, viewedMonth }}>
+    <calendarContext.Provider
+      value={{ locale, maxDate, minDate, onChange, value, viewedMonth }}
+    >
       <div className={classNames(classes.calendar, className)} {...props}>
         <CalendarHeader onNextClick={nextMonth} onPrevClick={prevMonth} />
         <CalendarDaysHeader />

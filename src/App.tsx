@@ -4,13 +4,17 @@ import Calendar from './components/Calendar';
 
 import './App.css';
 
+const today = new Date();
+
 const App = () => {
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date>(today);
 
   return (
     <Calendar
       value={selectedDate}
       onChange={newDate => setSelectedDate(newDate)}
+      minDate={new Date(today.getTime() - 8640000000)}
+      maxDate={new Date(today.getTime() + 8640000000)}
     />
   );
 };

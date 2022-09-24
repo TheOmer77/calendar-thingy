@@ -3,8 +3,10 @@ import { createContext } from 'react';
 interface ICalendarContext {
   value?: Date;
   onChange?: (date: Date) => void;
-  viewedMonth: [year: number, month: number];
   locale: string;
+  minDate?: Date;
+  maxDate?: Date;
+  viewedMonth: [year: number, month: number];
 }
 
 const initialState: ICalendarContext = {
