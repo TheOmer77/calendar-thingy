@@ -1,24 +1,29 @@
-import { DetailedHTMLProps, HTMLAttributes, MouseEventHandler } from 'react';
+import {
+  DetailedHTMLProps,
+  HTMLAttributes,
+  MouseEventHandler,
+  useContext,
+} from 'react';
 import classNames from 'classnames';
+
+import calendarContext from './context';
 
 import classes from './index.module.css';
 
 interface CalendarHeaderProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-  viewedMonth: [year: number, month: number];
-  locale?: string;
   onNextClick?: MouseEventHandler<HTMLButtonElement>;
   onPrevClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 const CalendarHeader = ({
-  viewedMonth,
-  locale,
   onNextClick,
   onPrevClick,
   className,
   ...props
 }: CalendarHeaderProps) => {
+  const { viewedMonth, locale } = useContext(calendarContext);
+
   return (
     <div
       className={classNames(classes['calendar-header'], className)}

@@ -9,6 +9,7 @@ import classNames from 'classnames';
 import CalendarDaysHeader from './DaysHeader';
 import CalendarHeader from './Header';
 import Month from './Month';
+import calendarContext from './context';
 
 import classes from './index.module.css';
 
@@ -41,16 +42,13 @@ const Calendar = ({ locale = 'en-US', className, ...props }: CalendarProps) => {
     );
 
   return (
-    <div className={classNames(classes.calendar, className)} {...props}>
-      <CalendarHeader
-        viewedMonth={viewedMonth}
-        locale={locale}
-        onNextClick={nextMonth}
-        onPrevClick={prevMonth}
-      />
-      <CalendarDaysHeader locale={locale} />
-      <Month viewedMonth={viewedMonth} />
-    </div>
+    <calendarContext.Provider value={{ locale, viewedMonth }}>
+      <div className={classNames(classes.calendar, className)} {...props}>
+        <CalendarHeader onNextClick={nextMonth} onPrevClick={prevMonth} />
+        <CalendarDaysHeader />
+        <Month />
+      </div>
+    </calendarContext.Provider>
   );
 };
 

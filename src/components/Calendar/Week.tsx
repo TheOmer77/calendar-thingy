@@ -1,23 +1,20 @@
-import { DetailedHTMLProps, HTMLAttributes } from 'react';
+import { DetailedHTMLProps, HTMLAttributes, useContext } from 'react';
 import classNames from 'classnames';
 
 import Day from './Day';
+import calendarContext from './context';
 import { getDateString } from './utils';
 
 import classes from './index.module.css';
 
 interface CalendarWeekProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-  viewedMonth: [year: number, month: number];
   week?: number[];
 }
 
-const Week = ({
-  viewedMonth,
-  week = [],
-  className,
-  ...props
-}: CalendarWeekProps) => {
+const Week = ({ week = [], className, ...props }: CalendarWeekProps) => {
+  const { viewedMonth } = useContext(calendarContext);
+
   return (
     <div className={classNames(classes.week, className)} {...props}>
       {week.map(day => (

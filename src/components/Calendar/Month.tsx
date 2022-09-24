@@ -1,12 +1,11 @@
-import { useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 
 import Week from './Week';
+import calendarContext from './context';
 
-interface CalendarMonthProps {
-  viewedMonth: [year: number, month: number];
-}
+const Month = () => {
+  const { viewedMonth } = useContext(calendarContext);
 
-const Month = ({ viewedMonth }: CalendarMonthProps) => {
   const weeksInMonth = useMemo(() => {
     const monthFirstWeekday = new Date(
       viewedMonth[0],
@@ -32,7 +31,7 @@ const Month = ({ viewedMonth }: CalendarMonthProps) => {
   return (
     <>
       {weeksInMonth.map((week, index) => (
-        <Week key={`week-${index + 1}`} viewedMonth={viewedMonth} week={week} />
+        <Week key={`week-${index + 1}`} week={week} />
       ))}
     </>
   );
