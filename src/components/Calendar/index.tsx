@@ -14,11 +14,24 @@ import calendarContext from './context';
 import classes from './index.module.css';
 
 export interface CalendarProps
-  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+  extends Omit<
+    DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+    'onChange'
+  > {
+  value?: Date;
+  onChange?: (date: Date) => void;
   locale?: string;
 }
 
-const Calendar = ({ locale = 'en-US', className, ...props }: CalendarProps) => {
+const Calendar = ({
+  value,
+  onChange = () => {
+    return;
+  },
+  locale = 'en-US',
+  className,
+  ...props
+}: CalendarProps) => {
   const [viewedMonth, setViewedMonth] = useState<[year: number, month: number]>(
     [new Date().getFullYear(), new Date().getMonth()]
   );
@@ -42,11 +55,11 @@ const Calendar = ({ locale = 'en-US', className, ...props }: CalendarProps) => {
     );
 
   return (
-    <calendarContext.Provider value={{ locale, viewedMonth }}>
+    <calendarContext.Provider value={{ locale, onChange, value, viewedMonth }}>
       <div className={classNames(classes.calendar, className)} {...props}>
         <CalendarHeader onNextClick={nextMonth} onPrevClick={prevMonth} />
         <CalendarDaysHeader />
-        <Month />
+        <Month month={viewedMonth} />
       </div>
     </calendarContext.Provider>
   );

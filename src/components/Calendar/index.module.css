@@ -24,7 +24,8 @@
   justify-content: center;
   align-items: center;
 }
-.calendar button:focus-visible {
+.calendar button:focus-visible,
+.calendar button.day-selected:not(:active):not(:disabled) {
   outline: none;
   background-color: var(--button-color--hover);
 }

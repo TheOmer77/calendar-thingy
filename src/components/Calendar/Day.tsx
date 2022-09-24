@@ -1,5 +1,8 @@
-import { DetailedHTMLProps, HTMLAttributes } from 'react';
+import { DetailedHTMLProps, HTMLAttributes, useContext, useMemo } from 'react';
 import classNames from 'classnames';
+
+import calendarContext from './context';
+import { getDateString } from './utils';
 
 import classes from './index.module.css';
 
@@ -8,15 +11,27 @@ interface CalendarDayProps
     HTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
-  day: number;
+  date: Date;
 }
 
-const Day = ({ day, className, ...props }: CalendarDayProps) => {
-  return day < 1 ? (
-    <span className={classes.day} />
-  ) : (
-    <button className={classNames(classes.day, className)} {...props}>
-      {day}
+const Day = ({ date, className, ...props }: CalendarDayProps) => {
+  const { value, onChange } = useContext(calendarContext);
+  const selected = useMemo(
+    () => value && getDateString(value) === getDateString(date),
+    [date, value]
+  );
+
+  return (
+    <button
+      className={classNames(
+        classes.day,
+        selected && classes['day-selected'],
+        className
+      )}
+      onClick={() => onChange?.(date)}
+      {...props}
+    >
+      {date.getDate()}
     </button>
   );
 };
