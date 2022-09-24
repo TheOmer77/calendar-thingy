@@ -1,11 +1,20 @@
+import { DetailedHTMLProps, HTMLAttributes } from 'react';
 import classNames from 'classnames';
-import { CalendarProps } from '.';
 
 import { getWeekday } from './utils';
 
 import classes from './index.module.css';
 
-const CalendarDaysHeader = ({ locale, className, ...props }: CalendarProps) => {
+interface CalendarDaysHeaderProps
+  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+  locale?: string;
+}
+
+const CalendarDaysHeader = ({
+  locale,
+  className,
+  ...props
+}: CalendarDaysHeaderProps) => {
   return (
     <div className={classNames(classes['days-header'], className)} {...props}>
       {[...Array(7).keys()].map(key => (
