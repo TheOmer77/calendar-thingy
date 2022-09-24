@@ -2,8 +2,14 @@
   --button-color: rgba(0, 0, 0, 0);
   --button-color--hover: rgba(0, 0, 0, 0.15);
   --button-color--active: rgba(0, 0, 0, 0.25);
+  --button-color-primary: rgb(81, 34, 222);
+  --button-color-primary--hover: rgb(126, 63, 242);
+  --button-color-primary--active: rgb(83, 0, 232);
+
   --button-text-color: rgba(0, 0, 0);
   --button-text-color--disabled: rgba(0, 0, 0, 0.5);
+  --button-text-color-primary: rgba(255, 255, 255);
+  --button-text-color-primary--disabled: rgba(255, 255, 255, 0.5);
 
   width: 16rem;
   display: flex;
@@ -24,21 +30,37 @@
   justify-content: center;
   align-items: center;
 }
+.calendar button.day-selected {
+  background-color: var(--button-color-primary);
+  color: var(--button-text-color-primary);
+}
 .calendar button:focus-visible,
-.calendar button.day-selected:not(:active):not(:disabled) {
+.calendar button.day-selected:focus-visible {
   outline: none;
   background-color: var(--button-color--hover);
+}
+.calendar button.day-selected:focus-visible {
+  background-color: var(--button-color-primary--hover);
 }
 @media (hover: hover) {
   .calendar button:hover:not(:active):not(:disabled) {
     background-color: var(--button-color--hover);
   }
+  .calendar button.day-selected:hover:not(:active):not(:disabled) {
+    background-color: var(--button-color-primary--hover);
+  }
 }
 .calendar button:active:not(:disabled) {
   background-color: var(--button-color--active);
 }
+.calendar button.day-selected:active:not(:disabled) {
+  background-color: var(--button-color-primary--active);
+}
 .calendar button:disabled {
   color: var(--button-text-color--disabled);
+}
+.calendar button.day-selected:disabled {
+  color: var(--button-text-color-primary--disabled);
 }
 
 .calendar-header,
@@ -86,7 +108,13 @@
     --button-color: rgba(255, 255, 255, 0);
     --button-color--hover: rgba(255, 255, 255, 0.15);
     --button-color--active: rgba(255, 255, 255, 0.25);
+    --button-color-primary: rgb(183, 148, 246);
+    --button-color-primary--hover: rgb(212, 191, 249);
+    --button-color-primary--active: rgb(153, 101, 244);
+
     --button-text-color: rgba(255, 255, 255);
     --button-text-color--disabled: rgba(255, 255, 255, 0.5);
+    --button-text-color-primary: rgba(0, 0, 0);
+    --button-text-color-primary--disabled: rgba(0, 0, 0, 0.5);
   }
 }
