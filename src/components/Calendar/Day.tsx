@@ -40,6 +40,25 @@ const Day = ({ date, className, ...props }: CalendarDayProps) => {
         : getDateString(value) === getDateString(date)),
     [date, value]
   );
+  const inDateRange = useMemo(
+    () =>
+      Array.isArray(value) &&
+      value[0] &&
+      value[1] &&
+      date.getTime() >= value[0]?.getTime() &&
+      date.getTime() <= value[1].getTime(),
+    [date, value]
+  );
+  const isStartDate = useMemo(
+      () => Array.isArray(value) && date.getTime() === value[0]?.getTime(),
+      [date, value]
+    ),
+    isEndDate = useMemo(
+      () => Array.isArray(value) && date.getTime() === value[1]?.getTime(),
+      [date, value]
+    );
+  const isFirstWeekday = useMemo(() => date.getDay() === 0, [date]),
+    isLastWeekday = useMemo(() => date.getDay() === 6, [date]);
 
   const handleDayClick = useCallback(() => {
     if (!Array.isArray(value)) return onChange?.(date);
@@ -59,9 +78,16 @@ const Day = ({ date, className, ...props }: CalendarDayProps) => {
       className={classNames(
         classes.day,
         selected && classes['day-selected'],
+        inDateRange && classes['day-in-range'],
+        isStartDate && classes['day-start'],
+        isEndDate && classes['day-end'],
         className
       )}
     >
+      {inDateRange &&
+        !((isStartDate && isLastWeekday) || (isEndDate && isFirstWeekday)) && (
+          <div className={classes['day-range']} />
+        )}
       <button
         className={classes['day-button']}
         onClick={handleDayClick}
