@@ -5,22 +5,25 @@
 body,
 #root {
   margin: 0;
-  padding: 0;
   min-height: 100vh;
 }
 
 #root {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  padding: 2rem 0;
+  box-sizing: border-box;
 }
 
 .calendar-display {
-  height: 30rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+}
+.calendar-display:not(:last-of-type) {
+  margin-bottom: 2rem;
 }
 .calendar-display > .calendar-display-title {
   margin-top: 0;
@@ -30,4 +33,13 @@ body,
   margin-bottom: 1rem;
   white-space: pre;
   height: 3rem;
+}
+
+@media (min-width: 768px) {
+  #root {
+    flex-direction: row;
+  }
+  .calendar-display:not(:last-of-type) {
+    margin-bottom: 0;
+  }
 }
