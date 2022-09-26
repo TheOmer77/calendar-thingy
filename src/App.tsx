@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 
 import { Calendar } from './components/Calendar';
 
+import '@fontsource/figtree/variable.css';
 import './App.css';
 
 const today = new Date();
