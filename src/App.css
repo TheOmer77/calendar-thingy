@@ -21,6 +21,7 @@ body,
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  height: 28rem;
 }
 .calendar-display:not(:last-of-type) {
   margin-bottom: 2rem;
