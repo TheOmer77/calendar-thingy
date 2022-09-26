@@ -46,7 +46,7 @@ const App = () => {
           {selectedStartDate
             ? `Start: ${formatDate(selectedStartDate)}\n${
                 selectedEndDate
-                  ? `End: ${formatDate(selectedStartDate)}`
+                  ? `End: ${formatDate(selectedEndDate)}`
                   : 'Click on an end date to select it.'
               }`
             : 'Click on a start date to select it.'}
