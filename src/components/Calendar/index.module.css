@@ -1,15 +1,16 @@
 .calendar {
-  --button-color: rgba(0, 0, 0, 0);
-  --button-color--hover: rgba(0, 0, 0, 0.15);
-  --button-color--active: rgba(0, 0, 0, 0.25);
-  --button-color-primary: rgb(81, 34, 222);
-  --button-color-primary--hover: rgb(126, 63, 242);
-  --button-color-primary--active: rgb(83, 0, 232);
+  --color-primary: rgb(81, 34, 222);
+  --color-primary--hover: rgb(126, 63, 242);
+  --color-primary--active: rgb(83, 0, 232);
 
-  --button-text-color: rgba(0, 0, 0);
-  --button-text-color--disabled: rgba(0, 0, 0, 0.5);
-  --button-text-color-primary: rgba(255, 255, 255);
-  --button-text-color-primary--disabled: rgba(255, 255, 255, 0.5);
+  --color-button: rgba(0, 0, 0, 0);
+  --color-button--hover: rgba(0, 0, 0, 0.15);
+  --color-button--active: rgba(0, 0, 0, 0.25);
+
+  --color-text: rgba(0, 0, 0);
+  --color-text--disabled: rgba(0, 0, 0, 0.5);
+  --color-text-on-primary: rgba(255, 255, 255);
+  --color-text-on-primary--disabled: rgba(255, 255, 255, 0.5);
 
   width: 19rem;
   display: flex;
@@ -23,7 +24,7 @@
   background-color: transparent;
   border: none;
   border-radius: 1.125rem;
-  color: var(--button-text-color);
+  color: var(--color-text);
   font-size: inherit;
   font-family: inherit;
   display: flex;
@@ -31,36 +32,36 @@
   align-items: center;
 }
 .calendar .day-selected > .day-button {
-  background-color: var(--button-color-primary);
-  color: var(--button-text-color-primary);
+  background-color: var(--color-primary);
+  color: var(--color-text-on-primary);
 }
 .calendar button:focus-visible,
 .calendar .day-selected > .day-button:focus-visible {
   outline: none;
-  background-color: var(--button-color--hover);
+  background-color: var(--color-button--hover);
 }
 .calendar .day-selected > .day-button:focus-visible {
-  background-color: var(--button-color-primary--hover);
+  background-color: var(--color-primary--hover);
 }
 @media (hover: hover) {
   .calendar button:hover:not(:active):not(:disabled) {
-    background-color: var(--button-color--hover);
+    background-color: var(--color-button--hover);
   }
   .calendar .day-selected > .day-button:hover:not(:active):not(:disabled) {
-    background-color: var(--button-color-primary--hover);
+    background-color: var(--color-primary--hover);
   }
 }
 .calendar button:active:not(:disabled) {
-  background-color: var(--button-color--active);
+  background-color: var(--color-button--active);
 }
 .calendar .day-selected > .day-button:active:not(:disabled) {
-  background-color: var(--button-color-primary--active);
+  background-color: var(--color-primary--active);
 }
 .calendar button:disabled {
-  color: var(--button-text-color--disabled);
+  color: var(--color-text--disabled);
 }
 .calendar .day-selected > .day-button:disabled {
-  color: var(--button-text-color-primary--disabled);
+  color: var(--color-text-on-primary--disabled);
 }
 
 .calendar-header,
@@ -121,16 +122,17 @@
 
 @media (prefers-color-scheme: dark) {
   .calendar {
-    --button-color: rgba(255, 255, 255, 0);
-    --button-color--hover: rgba(255, 255, 255, 0.15);
-    --button-color--active: rgba(255, 255, 255, 0.25);
-    --button-color-primary: rgb(183, 148, 246);
-    --button-color-primary--hover: rgb(212, 191, 249);
-    --button-color-primary--active: rgb(153, 101, 244);
+    --color-primary: rgb(183, 148, 246);
+    --color-primary--hover: rgb(212, 191, 249);
+    --color-primary--active: rgb(153, 101, 244);
 
-    --button-text-color: rgba(255, 255, 255);
-    --button-text-color--disabled: rgba(255, 255, 255, 0.5);
-    --button-text-color-primary: rgba(0, 0, 0);
-    --button-text-color-primary--disabled: rgba(0, 0, 0, 0.5);
+    --color-button: rgba(255, 255, 255, 0);
+    --color-button--hover: rgba(255, 255, 255, 0.15);
+    --color-button--active: rgba(255, 255, 255, 0.25);
+
+    --color-text: rgba(255, 255, 255);
+    --color-text--disabled: rgba(255, 255, 255, 0.5);
+    --color-text-on-primary: rgba(0, 0, 0);
+    --color-text-on-primary--disabled: rgba(0, 0, 0, 0.5);
   }
 }
