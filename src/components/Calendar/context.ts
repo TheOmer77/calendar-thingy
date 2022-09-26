@@ -1,8 +1,11 @@
 import { createContext } from 'react';
+import { DateRange } from './RangeCalendar';
 
 interface ICalendarContext {
-  value?: Date;
+  value?: Date | DateRange;
   onChange?: (date: Date) => void;
+  onStartDateChange?: (date?: Date) => void;
+  onEndDateChange?: (date?: Date) => void;
   locale: string;
   minDate?: Date;
   maxDate?: Date;
@@ -11,6 +14,12 @@ interface ICalendarContext {
 
 const initialState: ICalendarContext = {
   onChange: () => {
+    return;
+  },
+  onStartDateChange: () => {
+    return;
+  },
+  onEndDateChange: () => {
     return;
   },
   viewedMonth: [new Date().getFullYear(), new Date().getMonth()],

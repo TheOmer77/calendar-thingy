@@ -1,4 +1,10 @@
-import { DetailedHTMLProps, HTMLAttributes, useContext, useMemo } from 'react';
+import {
+  DetailedHTMLProps,
+  HTMLAttributes,
+  useCallback,
+  useContext,
+  useMemo,
+} from 'react';
 import classNames from 'classnames';
 
 import calendarContext from './context';
@@ -15,11 +21,38 @@ interface CalendarDayProps
 }
 
 const Day = ({ date, className, ...props }: CalendarDayProps) => {
-  const { value, onChange, minDate, maxDate } = useContext(calendarContext);
+  const {
+    value,
+    onChange,
+    onStartDateChange,
+    onEndDateChange,
+    minDate,
+    maxDate,
+  } = useContext(calendarContext);
+
   const selected = useMemo(
-    () => value && getDateString(value) === getDateString(date),
+    () =>
+      value &&
+      (Array.isArray(value)
+        ? value
+            .map(valueDate => valueDate && getDateString(valueDate))
+            .includes(getDateString(date))
+        : getDateString(value) === getDateString(date)),
     [date, value]
   );
+
+  const handleDayClick = useCallback(() => {
+    if (!Array.isArray(value)) return onChange?.(date);
+
+    const [startDate, endDate] = value;
+    if (!endDate)
+      return !startDate || date.getTime() <= startDate?.getTime()
+        ? onStartDateChange?.(date)
+        : onEndDateChange?.(date);
+
+    onStartDateChange?.(date);
+    onEndDateChange?.();
+  }, [date, onChange, onEndDateChange, onStartDateChange, value]);
 
   return (
     <div
@@ -31,7 +64,7 @@ const Day = ({ date, className, ...props }: CalendarDayProps) => {
     >
       <button
         className={classes['day-button']}
-        onClick={() => onChange?.(date)}
+        onClick={handleDayClick}
         disabled={(minDate && date < minDate) || (maxDate && date > maxDate)}
         {...props}
       >
