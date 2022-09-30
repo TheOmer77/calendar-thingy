@@ -59,6 +59,29 @@ const Day = ({ date, className, ...props }: CalendarDayProps) => {
     );
   const isFirstWeekday = useMemo(() => date.getDay() === 0, [date]),
     isLastWeekday = useMemo(() => date.getDay() === 6, [date]);
+  const isFirstMonthDay = useMemo(() => date.getDate() === 1, [date]),
+    isLastMonthDay = useMemo(
+      () =>
+        getDateString(date) ===
+        getDateString(new Date(date.getFullYear(), date.getMonth() + 1, 0)),
+      [date]
+    );
+
+  const renderRangeMarker = useMemo(
+    () =>
+      !(
+        (isStartDate && (isLastWeekday || isLastMonthDay)) ||
+        (isEndDate && (isFirstWeekday || isFirstMonthDay))
+      ),
+    [
+      isEndDate,
+      isFirstMonthDay,
+      isFirstWeekday,
+      isLastMonthDay,
+      isLastWeekday,
+      isStartDate,
+    ]
+  );
 
   const handleDayClick = useCallback(() => {
     if (!Array.isArray(value)) return onChange?.(date);
@@ -84,10 +107,9 @@ const Day = ({ date, className, ...props }: CalendarDayProps) => {
         className
       )}
     >
-      {inDateRange &&
-        !((isStartDate && isLastWeekday) || (isEndDate && isFirstWeekday)) && (
-          <div className={classes['day-range']} />
-        )}
+      {inDateRange && renderRangeMarker && (
+        <div className={classes['day-range']} />
+      )}
       <button
         className={classes['day-button']}
         onClick={handleDayClick}
