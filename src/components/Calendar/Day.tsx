@@ -97,28 +97,23 @@ const Day = ({ date, className, ...props }: CalendarDayProps) => {
   }, [date, onChange, onEndDateChange, onStartDateChange, value]);
 
   return (
-    <div
+    <button
       className={classNames(
         classes.day,
         selected && classes['day-selected'],
-        inDateRange && classes['day-in-range'],
-        isStartDate && classes['day-start'],
-        isEndDate && classes['day-end'],
+        renderRangeMarker && [
+          inDateRange && classes['day-in-range'],
+          isStartDate && classes['day-start'],
+          isEndDate && classes['day-end'],
+        ],
         className
       )}
+      onClick={handleDayClick}
+      disabled={(minDate && date < minDate) || (maxDate && date > maxDate)}
+      {...props}
     >
-      {inDateRange && renderRangeMarker && (
-        <div className={classes['day-range']} />
-      )}
-      <button
-        className={classes['day-button']}
-        onClick={handleDayClick}
-        disabled={(minDate && date < minDate) || (maxDate && date > maxDate)}
-        {...props}
-      >
-        {date.getDate()}
-      </button>
-    </div>
+      {date.getDate()}
+    </button>
   );
 };
 
