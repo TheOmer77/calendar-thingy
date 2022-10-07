@@ -74,6 +74,7 @@ const RangeCalendar = ({
         onEndDateChange,
         value: [startDate, endDate],
         viewedMonth,
+        yearPickerVisible: false, // Temporary
       }}
     >
       <div className={classNames(classes.calendar, className)} {...props}>

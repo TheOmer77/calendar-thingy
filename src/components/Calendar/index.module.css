@@ -32,36 +32,54 @@
   justify-content: center;
   align-items: center;
 }
-.calendar .day-selected > .day-button {
+.calendar .day-selected > .day-button,
+.calendar .year-picker .year-picker-row > .year-button.year-selected {
   background-color: var(--color-primary);
   color: var(--color-text-on-primary);
 }
 .calendar button:focus-visible,
-.calendar .day-selected > .day-button:focus-visible {
+.calendar .day-selected > .day-button:focus-visible,
+.calendar
+  .year-picker
+  .year-picker-row
+  > .year-button.year-selected:focus-visible {
   outline: none;
   background-color: var(--color-button--hover);
 }
-.calendar .day-selected > .day-button:focus-visible {
+.calendar .day-selected > .day-button:focus-visible,
+.calendar
+  .year-picker
+  .year-picker-row
+  > .year-button.year-selected:focus-visible {
   background-color: var(--color-primary--hover);
 }
 @media (hover: hover) {
   .calendar button:hover:not(:active):not(:disabled) {
     background-color: var(--color-button--hover);
   }
-  .calendar .day-selected > .day-button:hover:not(:active):not(:disabled) {
+  .calendar .day-selected > .day-button:hover:not(:active):not(:disabled),
+  .calendar
+    .year-picker
+    .year-picker-row
+    > .year-button.year-selected:hover:not(:active):not(:disabled) {
     background-color: var(--color-primary--hover);
   }
 }
 .calendar button:active:not(:disabled) {
   background-color: var(--color-button--active);
 }
-.calendar .day-selected > .day-button:active:not(:disabled) {
+.calendar .day-selected > .day-button:active:not(:disabled),
+.calendar
+  .year-picker
+  .year-picker-row
+  > .year-button.year-selected:active:not(:disabled) {
   background-color: var(--color-primary--active);
 }
 .calendar button:disabled {
   color: var(--color-text--disabled);
 }
-.calendar .day-selected > .day-button:disabled {
+.calendar .day-selected > .day-button:disabled,
+.calendar .year-picker .year-picker-row > .year-button.year-selected:disabled {
   color: var(--color-text-on-primary--disabled);
 }
 .calendar .day-in-range > .day-range {
@@ -116,6 +134,10 @@
 }
 .calendar-header > .month {
   margin: 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+  padding: 0 0.5rem;
+  height: 32px;
 }
 .calendar-header > .arrow-switcher > button {
   font-size: 1.5rem;
@@ -158,6 +180,26 @@
   position: absolute;
   z-index: 1;
   margin-inline-start: 0.125rem;
+}
+
+.calendar .year-picker {
+  /* Hide scrollbar on firefox */
+  scrollbar-width: none;
+}
+.calendar .year-picker::-webkit-scrollbar {
+  /* Hide scrollbar on Chrome, Safari */
+  display: none;
+}
+.calendar .year-picker .year-picker-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.calendar .year-picker .year-picker-row > .year-button {
+  flex: 1;
+  height: 2.25rem;
+  margin: 0 0.5rem;
 }
 
 @media (prefers-color-scheme: dark) {

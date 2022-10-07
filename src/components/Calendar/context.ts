@@ -10,6 +10,7 @@ interface ICalendarContext {
   minDate?: Date;
   maxDate?: Date;
   viewedMonth: [year: number, month: number];
+  yearPickerVisible: boolean;
 }
 
 const initialState: ICalendarContext = {
@@ -24,6 +25,7 @@ const initialState: ICalendarContext = {
   },
   viewedMonth: [new Date().getFullYear(), new Date().getMonth()],
   locale: 'en-US',
+  yearPickerVisible: false,
 };
 
 const calendarContext = createContext<ICalendarContext>(initialState);

@@ -9,6 +9,7 @@ import classNames from 'classnames';
 import CalendarDaysHeader from './DaysHeader';
 import CalendarHeader from './Header';
 import Month from './Month';
+import YearPicker from './YearPicker';
 import calendarContext from './context';
 
 import classes from './index.module.css';
@@ -39,6 +40,7 @@ const Calendar = ({
   const [viewedMonth, setViewedMonth] = useState<[year: number, month: number]>(
     [new Date().getFullYear(), new Date().getMonth()]
   );
+  const [yearPickerVisible, setYearPickerVisible] = useState<boolean>(false);
 
   const nextMonth = useCallback(
       () =>
@@ -58,14 +60,50 @@ const Calendar = ({
       []
     );
 
+  const handleYearClick = useCallback(
+    (year: number) => {
+      setViewedMonth(prev => [
+        year,
+        minDate && new Date(year, prev[1] + 1, 0).getTime() < minDate.getTime()
+          ? minDate.getMonth()
+          : maxDate && new Date(year, prev[1], 1).getTime() > maxDate.getTime()
+          ? maxDate.getMonth()
+          : prev[1],
+      ]);
+      setYearPickerVisible(false);
+    },
+    [maxDate, minDate]
+  );
+
   return (
     <calendarContext.Provider
-      value={{ locale, maxDate, minDate, onChange, value, viewedMonth }}
+      value={{
+        locale,
+        maxDate,
+        minDate,
+        onChange,
+        value,
+        viewedMonth,
+        yearPickerVisible,
+      }}
     >
       <div className={classNames(classes.calendar, className)} {...props}>
-        <CalendarHeader onNextClick={nextMonth} onPrevClick={prevMonth} />
-        <CalendarDaysHeader />
-        <Month month={viewedMonth} />
+        <CalendarHeader
+          onNextClick={nextMonth}
+          onPrevClick={prevMonth}
+          onYearPickerClick={() => setYearPickerVisible(prev => !prev)}
+        />
+        {yearPickerVisible ? (
+          <YearPicker
+            initialFirstItem={viewedMonth[0]}
+            onYearClick={handleYearClick}
+          />
+        ) : (
+          <>
+            <CalendarDaysHeader />
+            <Month month={viewedMonth} />
+          </>
+        )}
       </div>
     </calendarContext.Provider>
   );
