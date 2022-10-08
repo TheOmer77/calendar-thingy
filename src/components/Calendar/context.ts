@@ -1,5 +1,7 @@
 import { createContext } from 'react';
+
 import { DateRange } from './RangeCalendar';
+import defaults from './defaults';
 
 interface ICalendarContext {
   value?: Date | DateRange;
@@ -14,18 +16,12 @@ interface ICalendarContext {
 }
 
 const initialState: ICalendarContext = {
-  onChange: () => {
-    return;
-  },
-  onStartDateChange: () => {
-    return;
-  },
-  onEndDateChange: () => {
-    return;
-  },
-  viewedMonth: [new Date().getFullYear(), new Date().getMonth()],
-  locale: 'en-US',
-  yearPickerVisible: false,
+  onChange: defaults.onChange,
+  onStartDateChange: defaults.onChange,
+  onEndDateChange: defaults.onChange,
+  viewedMonth: defaults.viewedMonth,
+  locale: defaults.locale,
+  yearPickerVisible: defaults.yearPickerVisible,
 };
 
 const calendarContext = createContext<ICalendarContext>(initialState);

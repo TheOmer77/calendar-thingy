@@ -11,6 +11,7 @@ import CalendarHeader from './Header';
 import Month from './Month';
 import YearPicker from './YearPicker';
 import calendarContext from './context';
+import defaults from './defaults';
 
 import classes from './index.module.css';
 
@@ -28,10 +29,8 @@ export interface CalendarProps
 
 const Calendar = ({
   value,
-  onChange = () => {
-    return;
-  },
-  locale = 'en-US',
+  onChange = defaults.onChange,
+  locale = defaults.locale,
   minDate,
   maxDate,
   className,
