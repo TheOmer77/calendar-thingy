@@ -1,6 +1,7 @@
 import {
   DetailedHTMLProps,
   HTMLAttributes,
+  ReactNode,
   useCallback,
   useState,
 } from 'react';
@@ -25,6 +26,7 @@ export interface CalendarProps
   locale?: string;
   minDate?: Date;
   maxDate?: Date;
+  renderDay?: (date: Date, month: [year: number, month: number]) => ReactNode;
 }
 
 const Calendar = ({
@@ -33,6 +35,7 @@ const Calendar = ({
   locale = defaults.locale,
   minDate,
   maxDate,
+  renderDay = defaults.renderDay,
   className,
   ...props
 }: CalendarProps) => {
@@ -84,6 +87,7 @@ const Calendar = ({
         value,
         viewedMonth,
         yearPickerVisible,
+        renderDay,
       }}
     >
       <div className={classNames(classes.calendar, className)} {...props}>

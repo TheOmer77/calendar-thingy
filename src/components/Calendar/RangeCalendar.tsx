@@ -10,6 +10,7 @@ import CalendarDaysHeader from './DaysHeader';
 import CalendarHeader from './Header';
 import Month from './Month';
 import calendarContext from './context';
+import defaults from './defaults';
 
 import classes from './index.module.css';
 
@@ -74,7 +75,8 @@ const RangeCalendar = ({
         onEndDateChange,
         value: [startDate, endDate],
         viewedMonth,
-        yearPickerVisible: false, // Temporary
+        yearPickerVisible: defaults.yearPickerVisible, // Temporary!
+        renderDay: defaults.renderDay, // Temporary!
       }}
     >
       <div className={classNames(classes.calendar, className)} {...props}>

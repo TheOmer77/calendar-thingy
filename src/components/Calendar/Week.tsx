@@ -1,8 +1,7 @@
-import { DetailedHTMLProps, HTMLAttributes } from 'react';
+import { DetailedHTMLProps, HTMLAttributes, useContext } from 'react';
 import classNames from 'classnames';
 
-import Day from './Day';
-import { getDateString } from './utils';
+import calendarContext from './context';
 
 import classes from './index.module.css';
 
@@ -13,15 +12,11 @@ interface CalendarWeekProps
 }
 
 const Week = ({ month, days = [], className, ...props }: CalendarWeekProps) => {
+  const { renderDay } = useContext(calendarContext);
+
   return (
     <div className={classNames(classes.week, className)} {...props}>
-      {days.map(date =>
-        date.getTime() < new Date(...month, 1).getTime() ? (
-          <span key={getDateString(date)} className={classes.day} />
-        ) : (
-          <Day date={date} key={getDateString(date)} id={getDateString(date)} />
-        )
-      )}
+      {days.map(date => renderDay(date, month))}
     </div>
   );
 };
