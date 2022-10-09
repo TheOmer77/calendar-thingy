@@ -26,7 +26,7 @@ export interface CalendarProps
   locale?: string;
   minDate?: Date;
   maxDate?: Date;
-  renderDay?: (date: Date, month: [year: number, month: number]) => ReactNode;
+  renderDay?: (date: Date, dateInCurrentMonth?: boolean) => ReactNode;
 }
 
 const Calendar = ({

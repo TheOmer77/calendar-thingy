@@ -84,10 +84,8 @@ const RangeCalendar = ({
 
   return (
     <Calendar
-      renderDay={(date, month) =>
-        date.getTime() < new Date(...month, 1).getTime() ? (
-          <span key={getDateString(date)} className={classes.day} />
-        ) : (
+      renderDay={(date, dateInCurrentMonth) =>
+        dateInCurrentMonth ? (
           <Day
             date={date}
             selected={
@@ -104,6 +102,8 @@ const RangeCalendar = ({
               ]
             )}
           />
+        ) : (
+          <span key={getDateString(date)} className={classes.day} />
         )
       }
       locale={locale}
