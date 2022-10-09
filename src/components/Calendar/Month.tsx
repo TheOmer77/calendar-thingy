@@ -7,32 +7,36 @@ interface CalendarMonthProps {
   month: [year: number, month: number];
 }
 
-const Month = ({ month }: CalendarMonthProps) => {
+const Month = ({ month: [year, month] }: CalendarMonthProps) => {
   const weeksInMonth = useMemo(() => {
-    const monthFirstWeekday = new Date(month[0], month[1], 1).getDay();
-    const daysInMonth = new Date(month[0], month[1] + 1, 0).getDate();
-    return [...Array(monthFirstWeekday + daysInMonth).keys()].reduce(
-      (result, item, index) => {
-        const chunkIndex = Math.floor(index / 7);
-        if (!result[chunkIndex]) result[chunkIndex] = [];
-        result[chunkIndex].push(
-          new Date(...month, item - monthFirstWeekday + 1)
-        );
-        return result;
-      },
-      [] as Date[][]
+    const firstOfMonth = new Date(year, month, 1),
+      lastOfMonth = new Date(year, month + 1, 0);
+
+    return [
+      ...Array(
+        Math.ceil((firstOfMonth.getDay() + lastOfMonth.getDate()) / 7)
+      ).keys(),
+    ].map(weekNum =>
+      [...Array(7).keys()].map(
+        dayNum =>
+          new Date(
+            year,
+            month,
+            dayNum + 1 + weekNum * 7 - firstOfMonth.getDay()
+          )
+      )
     );
-  }, [month]);
+  }, [month, year]);
 
   return (
     <>
       {weeksInMonth.map((week, index) => (
         <Week
-          key={`${getDateString(new Date(...month, 1))
+          key={`${getDateString(new Date(year, month, 1))
             .split('-')
             .slice(0, 2)
             .join('-')}-week${index + 1}`}
-          month={month}
+          month={[year, month]}
           days={week}
         />
       ))}
