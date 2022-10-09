@@ -15,10 +15,12 @@ const Month = ({ month }: CalendarMonthProps) => {
       (result, item, index) => {
         const chunkIndex = Math.floor(index / 7);
         if (!result[chunkIndex]) result[chunkIndex] = [];
-        result[chunkIndex].push(item - monthFirstWeekday + 1);
+        result[chunkIndex].push(
+          new Date(...month, item - monthFirstWeekday + 1)
+        );
         return result;
       },
-      [] as number[][]
+      [] as Date[][]
     );
   }, [month]);
 
@@ -31,7 +33,7 @@ const Month = ({ month }: CalendarMonthProps) => {
             .slice(0, 2)
             .join('-')}-week${index + 1}`}
           month={month}
-          week={week}
+          days={week}
         />
       ))}
     </>

@@ -9,24 +9,17 @@ import classes from './index.module.css';
 interface CalendarWeekProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   month: [year: number, month: number];
-  week?: number[];
+  days?: Date[];
 }
 
-const Week = ({ month, week = [], className, ...props }: CalendarWeekProps) => {
+const Week = ({ month, days = [], className, ...props }: CalendarWeekProps) => {
   return (
     <div className={classNames(classes.week, className)} {...props}>
-      {week.map(day =>
-        day < 1 ? (
-          <span
-            key={getDateString(new Date(month[0], month[1], day))}
-            className={classes.day}
-          />
+      {days.map(date =>
+        date.getTime() < new Date(...month, 1).getTime() ? (
+          <span key={getDateString(date)} className={classes.day} />
         ) : (
-          <Day
-            date={new Date(...month, day)}
-            key={getDateString(new Date(month[0], month[1], day))}
-            id={getDateString(new Date(month[0], month[1], day))}
-          />
+          <Day date={date} key={getDateString(date)} id={getDateString(date)} />
         )
       )}
     </div>
