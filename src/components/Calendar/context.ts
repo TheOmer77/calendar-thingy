@@ -13,7 +13,7 @@ interface ICalendarContext {
   maxDate?: Date;
   viewedMonth: [year: number, month: number];
   yearPickerVisible: boolean;
-  renderDay: (date: Date, month: [year: number, month: number]) => ReactNode;
+  renderDay?: (date: Date, month: [year: number, month: number]) => ReactNode;
 }
 
 const initialState: ICalendarContext = {
@@ -23,7 +23,6 @@ const initialState: ICalendarContext = {
   viewedMonth: defaults.viewedMonth,
   locale: defaults.locale,
   yearPickerVisible: defaults.yearPickerVisible,
-  renderDay: defaults.renderDay,
 };
 
 const calendarContext = createContext<ICalendarContext>(initialState);

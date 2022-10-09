@@ -1,16 +1,9 @@
-import {
-  DetailedHTMLProps,
-  HTMLAttributes,
-  useCallback,
-  useState,
-} from 'react';
+import { DetailedHTMLProps, HTMLAttributes, useCallback } from 'react';
 import classNames from 'classnames';
 
-import CalendarDaysHeader from './DaysHeader';
-import CalendarHeader from './Header';
-import Month from './Month';
-import calendarContext from './context';
-import defaults from './defaults';
+import Calendar from './Calendar';
+import Day from './Day';
+import { getDateString } from './utils';
 
 import classes from './index.module.css';
 
@@ -29,6 +22,13 @@ export interface RangeCalendarProps
   maxDate?: Date;
 }
 
+const isFirstWeekday = (date: Date) => date.getDay() === 0,
+  isLastWeekday = (date: Date) => date.getDay() === 6;
+const isFirstMonthDay = (date: Date) => date.getDate() === 1,
+  isLastMonthDay = (date: Date) =>
+    getDateString(date) ===
+    getDateString(new Date(date.getFullYear(), date.getMonth() + 1, 0));
+
 const RangeCalendar = ({
   value: [startDate, endDate] = [undefined, undefined],
   onStartDateChange = () => {
@@ -43,48 +43,76 @@ const RangeCalendar = ({
   className,
   ...props
 }: RangeCalendarProps) => {
-  const [viewedMonth, setViewedMonth] = useState<[year: number, month: number]>(
-    [new Date().getFullYear(), new Date().getMonth()]
+  const inDateRange = useCallback(
+    (date: Date) =>
+      startDate &&
+      endDate &&
+      date.getTime() >= startDate.getTime() &&
+      date.getTime() <= endDate.getTime(),
+    [endDate, startDate]
   );
-
-  const nextMonth = useCallback(
-      () =>
-        setViewedMonth(prev => [
-          prev[0] + (prev[1] > 10 ? 1 : 0),
-          prev[1] > 10 ? 0 : prev[1] + 1,
-        ]),
-      []
+  const isStartDate = useCallback(
+      (date: Date) => date.getTime() === startDate?.getTime(),
+      [startDate]
     ),
-    prevMonth = useCallback(
-      () =>
-        setViewedMonth(prev => [
-          prev[0] - (prev[1] < 1 ? 1 : 0),
-          prev[1] < 1 ? 11 : prev[1] - 1,
-        ]),
-
-      []
+    isEndDate = useCallback(
+      (date: Date) => date.getTime() === endDate?.getTime(),
+      [endDate]
     );
 
+  const renderRangeMarker = useCallback(
+    (date: Date) =>
+      !(
+        (isStartDate(date) && (isLastWeekday(date) || isLastMonthDay(date))) ||
+        (isEndDate(date) && (isFirstWeekday(date) || isFirstMonthDay(date)))
+      ),
+    [isEndDate, isStartDate]
+  );
+
+  const handleDayClick = useCallback(
+    (date: Date) => {
+      if (!endDate)
+        return !startDate || date.getTime() <= startDate?.getTime()
+          ? onStartDateChange?.(date)
+          : onEndDateChange?.(date);
+
+      onStartDateChange?.(date);
+      onEndDateChange?.();
+    },
+    [endDate, onEndDateChange, onStartDateChange, startDate]
+  );
+
   return (
-    <calendarContext.Provider
-      value={{
-        locale,
-        maxDate,
-        minDate,
-        onStartDateChange,
-        onEndDateChange,
-        value: [startDate, endDate],
-        viewedMonth,
-        yearPickerVisible: defaults.yearPickerVisible, // Temporary!
-        renderDay: defaults.renderDay, // Temporary!
-      }}
-    >
-      <div className={classNames(classes.calendar, className)} {...props}>
-        <CalendarHeader onNextClick={nextMonth} onPrevClick={prevMonth} />
-        <CalendarDaysHeader />
-        <Month month={viewedMonth} />
-      </div>
-    </calendarContext.Provider>
+    <Calendar
+      renderDay={(date, month) =>
+        date.getTime() < new Date(...month, 1).getTime() ? (
+          <span key={getDateString(date)} className={classes.day} />
+        ) : (
+          <Day
+            date={date}
+            selected={
+              (startDate && date.getTime() === startDate.getTime()) ||
+              (endDate && date.getTime() === endDate.getTime())
+            }
+            key={getDateString(date)}
+            id={getDateString(date)}
+            className={classNames(
+              renderRangeMarker(date) && [
+                inDateRange(date) && classes['day-in-range'],
+                isStartDate(date) && classes['day-start'],
+                isEndDate(date) && classes['day-end'],
+              ]
+            )}
+          />
+        )
+      }
+      locale={locale}
+      onChange={handleDayClick}
+      minDate={minDate}
+      maxDate={maxDate}
+      className={className}
+      {...props}
+    />
   );
 };
 

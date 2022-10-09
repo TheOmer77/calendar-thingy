@@ -12,12 +12,20 @@ const defaults = {
   ],
   locale: 'en-US',
   yearPickerVisible: false,
-  renderDay: (date: Date, month: [year: number, month: number]) =>
-    date.getTime() < new Date(...month, 1).getTime() ? (
-      <span key={getDateString(date)} className={classes.day} />
-    ) : (
-      <Day date={date} key={getDateString(date)} id={getDateString(date)} />
-    ),
+  renderDay:
+    (value?: Date) =>
+    // TODO: Pass `dateInCurrentMonth` param instead of month
+    (date: Date, month: [year: number, month: number]) =>
+      date.getTime() < new Date(...month, 1).getTime() ? (
+        <span key={getDateString(date)} className={classes.day} />
+      ) : (
+        <Day
+          date={date}
+          selected={value && value.getTime() === date.getTime()}
+          key={getDateString(date)}
+          id={getDateString(date)}
+        />
+      ),
 };
 
 export default defaults;

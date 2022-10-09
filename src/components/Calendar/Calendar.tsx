@@ -35,7 +35,7 @@ const Calendar = ({
   locale = defaults.locale,
   minDate,
   maxDate,
-  renderDay = defaults.renderDay,
+  renderDay,
   className,
   ...props
 }: CalendarProps) => {
@@ -87,7 +87,7 @@ const Calendar = ({
         value,
         viewedMonth,
         yearPickerVisible,
-        renderDay,
+        renderDay: renderDay || defaults.renderDay(value),
       }}
     >
       <div className={classNames(classes.calendar, className)} {...props}>

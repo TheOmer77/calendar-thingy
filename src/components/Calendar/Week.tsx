@@ -16,7 +16,7 @@ const Week = ({ month, days = [], className, ...props }: CalendarWeekProps) => {
 
   return (
     <div className={classNames(classes.week, className)} {...props}>
-      {days.map(date => renderDay(date, month))}
+      {days.map(date => renderDay?.(date, month))}
     </div>
   );
 };
