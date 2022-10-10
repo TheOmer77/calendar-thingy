@@ -3,9 +3,9 @@ import classNames from 'classnames';
 
 import Calendar from './Calendar';
 import Day from './Day';
-import { getDateString } from './utils';
+import { getDateString } from '../utils/utils';
 
-import classes from './index.module.css';
+import classes from '../styles/index.module.css';
 
 export type DateRange = [startDate?: Date, endDate?: Date];
 

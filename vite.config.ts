@@ -1,3 +1,4 @@
+import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { checker } from 'vite-plugin-checker';
@@ -13,4 +14,21 @@ export default defineConfig({
       },
     }),
   ],
+  build: {
+    lib: {
+      entry: resolve(__dirname, 'src/index.ts'),
+      name: 'CalendarThingy',
+    },
+    rollupOptions: {
+      external: ['classnames', 'react', 'react-dom', 'react-window'],
+      output: {
+        globals: {
+          classnames: 'classNames',
+          react: 'React',
+          'react-dom': 'ReactDOM',
+          'react-window': 'reactWindow',
+        },
+      },
+    },
+  },
 });

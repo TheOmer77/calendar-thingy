@@ -11,10 +11,10 @@ import CalendarDaysHeader from './DaysHeader';
 import CalendarHeader from './Header';
 import Month from './Month';
 import YearPicker from './YearPicker';
-import calendarContext from './context';
-import defaults from './defaults';
+import calendarContext from '../utils/context';
+import defaults from '../utils/defaults';
 
-import classes from './index.module.css';
+import classes from '../styles/index.module.css';
 
 export interface CalendarProps
   extends Omit<

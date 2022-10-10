@@ -1,6 +1,6 @@
-import Day from './Day';
-import { getDateString } from './utils';
-import classes from './index.module.css';
+import Day from '../components/Day';
+import { getDateString } from '../utils/utils';
+import classes from '../styles/index.module.css';
 
 const defaults = {
   onChange: () => {

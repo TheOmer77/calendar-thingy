@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 
-import { Calendar, RangeCalendar } from './components/Calendar';
+import { Calendar, RangeCalendar } from '../src';
 
 import '@fontsource/figtree/variable.css';
 import './App.css';

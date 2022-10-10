@@ -1,6 +1,6 @@
 import { createContext, ReactNode } from 'react';
 
-import { DateRange } from './RangeCalendar';
+import { DateRange } from '../components/RangeCalendar';
 import defaults from './defaults';
 
 interface ICalendarContext {

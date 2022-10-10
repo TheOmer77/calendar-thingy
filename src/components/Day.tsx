@@ -6,9 +6,9 @@ import {
 } from 'react';
 import classNames from 'classnames';
 
-import calendarContext from './context';
+import calendarContext from '../utils/context';
 
-import classes from './index.module.css';
+import classes from '../styles/index.module.css';
 
 interface CalendarDayProps
   extends DetailedHTMLProps<

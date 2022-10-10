@@ -1,10 +1,10 @@
 import { DetailedHTMLProps, HTMLAttributes, useContext } from 'react';
 import classNames from 'classnames';
 
-import calendarContext from './context';
-import { getWeekday } from './utils';
+import calendarContext from '../utils/context';
+import { getWeekday } from '../utils/utils';
 
-import classes from './index.module.css';
+import classes from '../styles/index.module.css';
 
 const CalendarDaysHeader = ({
   className,

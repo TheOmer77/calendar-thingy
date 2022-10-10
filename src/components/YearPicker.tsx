@@ -9,8 +9,8 @@ import {
 import classNames from 'classnames';
 import { FixedSizeList, ListOnScrollProps } from 'react-window';
 
-import classes from './index.module.css';
-import calendarContext from './context';
+import classes from '../styles/index.module.css';
+import calendarContext from '../utils/context';
 
 export interface YearPickerProps {
   initialFirstItem: number;

@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { getDateString } from './utils';
+import { getDateString } from '../utils/utils';
 
 import Week from './Week';
 
