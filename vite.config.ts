@@ -2,6 +2,7 @@ import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { checker } from 'vite-plugin-checker';
+import dts from 'vite-plugin-dts';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,6 +14,7 @@ export default defineConfig({
         lintCommand: 'eslint "./src/**/*.{ts,tsx}"', // for example, lint .ts & .tsx
       },
     }),
+    dts({ insertTypesEntry: true }),
   ],
   build: {
     lib: {
