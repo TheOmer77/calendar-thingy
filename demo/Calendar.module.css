@@ -1,0 +1,220 @@
+/* Root */
+.calendar {
+  --color-primary: rgb(81, 34, 222);
+  --color-primary--hover: rgb(126, 63, 242);
+  --color-primary--active: rgb(83, 0, 232);
+  --color-primary-transparent: rgba(81, 34, 222, 0.2);
+
+  --color-button: rgba(0, 0, 0, 0);
+  --color-button--hover: rgba(0, 0, 0, 0.15);
+  --color-button--active: rgba(0, 0, 0, 0.25);
+
+  --color-text: rgba(0, 0, 0);
+  --color-text--secondary: rgba(0, 0, 0, 0.67);
+  --color-text--disabled: rgba(0, 0, 0, 0.5);
+  --color-text-on-primary: rgba(255, 255, 255);
+  --color-text-on-primary--disabled: rgba(255, 255, 255, 0.5);
+
+  width: 19rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Buttons */
+.calendar button {
+  color: inherit;
+  background-color: transparent;
+  border: none;
+  border-radius: 1.125rem;
+  color: var(--color-text);
+  font-size: inherit;
+  font-family: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.calendar .day.day-selected,
+.calendar .year-picker .year-picker-row > .year-button.year-selected {
+  background-color: var(--color-primary);
+  color: var(--color-text-on-primary);
+}
+.calendar button:focus-visible,
+.calendar .day.day-selected:focus-visible,
+.calendar
+  .year-picker
+  .year-picker-row
+  > .year-button.year-selected:focus-visible {
+  outline: none;
+  background-color: var(--color-button--hover);
+}
+.calendar .day.day-selected:focus-visible,
+.calendar
+  .year-picker
+  .year-picker-row
+  > .year-button.year-selected:focus-visible {
+  background-color: var(--color-primary--hover);
+}
+@media (hover: hover) {
+  .calendar button:hover:not(:active):not(:disabled) {
+    background-color: var(--color-button--hover);
+  }
+  .calendar .day.day-selected:hover:not(:active):not(:disabled),
+  .calendar
+    .year-picker
+    .year-picker-row
+    > .year-button.year-selected:hover:not(:active):not(:disabled) {
+    background-color: var(--color-primary--hover);
+  }
+}
+.calendar button:active:not(:disabled) {
+  background-color: var(--color-button--active);
+}
+.calendar .day.day-selected:active:not(:disabled),
+.calendar
+  .year-picker
+  .year-picker-row
+  > .year-button.year-selected:active:not(:disabled) {
+  background-color: var(--color-primary--active);
+}
+.calendar button:disabled {
+  color: var(--color-text--disabled);
+}
+.calendar .day.day-selected:disabled,
+.calendar .year-picker .year-picker-row > .year-button.year-selected:disabled {
+  color: var(--color-text-on-primary--disabled);
+}
+
+.calendar-header,
+.calendar-header > .arrow-switcher,
+.days-header,
+.week {
+  display: flex;
+  flex-direction: row;
+}
+
+/* Header - month/year switcher button, arrow buttons */
+.calendar-header {
+  width: 19rem;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  padding: 0 0.5rem;
+  box-sizing: border-box;
+}
+.calendar-header > .month {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+  padding: 0 0.5rem;
+  height: 32px;
+}
+.calendar-header > .arrow-switcher > button {
+  font-size: 1.5rem;
+  width: 2rem;
+  height: 2rem;
+}
+.calendar-header > .arrow-switcher > button:not(:last-of-type) {
+  margin-right: 0.25rem;
+}
+
+/* Days header, week, days */
+.days-header {
+  color: var(--color-text--secondary);
+}
+.days-header,
+.week {
+  width: 19rem;
+  justify-content: flex-start;
+}
+.days-header > .day-label,
+.week > .day {
+  width: 2.25rem;
+  height: 2.25rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.125rem;
+  position: relative;
+}
+.days-header > .day-label:not(:last-child),
+.week > .day:not(:last-child) {
+  margin-inline-end: 0.375rem;
+}
+
+/* Day range */
+.week > .day.day-in-range::before {
+  content: '';
+  width: calc(100% + 0.5rem);
+  height: 100%;
+  background-color: var(--color-primary-transparent);
+  position: absolute;
+  z-index: -1;
+}
+.week > .day-in-range.day-selected.day-start::before {
+  width: calc(50% + 0.25rem);
+  inset-inline-end: -0.25rem;
+}
+.week > .day-in-range.day-selected.day-end::before {
+  width: calc(50% + 0.25rem);
+  inset-inline-start: -0.25rem;
+}
+.week > .day-in-range:not(.day-selected):first-of-type::before,
+.week > .day-in-range:not(.day-selected):last-of-type::before {
+  width: calc(100% + 0.25rem);
+}
+.week > .day-in-range:not(.day-selected):first-of-type::before {
+  inset-inline-start: 0;
+  border-start-start-radius: 1.125rem;
+  border-end-start-radius: 1.125rem;
+}
+.week > .day-in-range:not(.day-selected):last-of-type::before {
+  inset-inline-end: 0;
+  border-start-end-radius: 1.125rem;
+  border-end-end-radius: 1.125rem;
+}
+.week > .day-in-range:not(.day-selected):first-of-type:last-of-type::before {
+  width: 100%;
+}
+
+/* Year picker */
+.calendar .year-picker {
+  /* Hide scrollbar on firefox */
+  scrollbar-width: none;
+}
+.calendar .year-picker::-webkit-scrollbar {
+  /* Hide scrollbar on Chrome, Safari */
+  display: none;
+}
+.calendar .year-picker .year-picker-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.calendar .year-picker .year-picker-row > .year-button {
+  flex: 1;
+  height: 2.25rem;
+  margin: 0 0.5rem;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  .calendar {
+    --color-button: rgba(255, 255, 255, 0);
+    --color-button--hover: rgba(255, 255, 255, 0.15);
+    --color-button--active: rgba(255, 255, 255, 0.25);
+    --color-primary: rgb(183, 148, 246);
+    --color-primary--hover: rgb(212, 191, 249);
+    --color-primary--active: rgb(153, 101, 244);
+    --color-primary-transparent: rgba(153, 101, 244, 0.2);
+
+    --color-text: rgba(255, 255, 255);
+    --color-text--secondary: rgba(255, 255, 255, 0.67);
+    --color-text--disabled: rgba(255, 255, 255, 0.5);
+    --color-text-on-primary: rgba(0, 0, 0);
+    --color-text-on-primary--disabled: rgba(0, 0, 0, 0.5);
+  }
+}
