@@ -28,7 +28,7 @@ export interface YearPickerProps {
 const YearPicker = ({
   initialFirstItem,
   onYearClick,
-  height = 168,
+  height = 196,
   itemsPerRow = 3,
   rowCount = 120,
   rowHeight = 24,
