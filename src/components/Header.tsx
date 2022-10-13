@@ -28,10 +28,7 @@ const CalendarHeader = ({
     useContext(calendarContext);
 
   return (
-    <div
-      className={classNames(defaultClasses['calendar-header'], className)}
-      {...props}
-    >
+    <div className={classNames(defaultClasses.header, className)} {...props}>
       <button
         className={classNames(classes?.headerMonth)}
         onClick={onYearPickerClick}
