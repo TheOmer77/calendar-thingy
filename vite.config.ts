@@ -20,6 +20,7 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'CalendarThingy',
+      fileName: 'index',
     },
     rollupOptions: {
       external: ['classnames', 'react', 'react-dom', 'react-window'],
