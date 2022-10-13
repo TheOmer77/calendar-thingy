@@ -1,5 +1,6 @@
 import {
   DetailedHTMLProps,
+  forwardRef,
   HTMLAttributes,
   ReactNode,
   useCallback,
@@ -29,87 +30,99 @@ export interface CalendarProps
   renderDay?: (date: Date, dateInCurrentMonth?: boolean) => ReactNode;
 }
 
-const Calendar = ({
-  value,
-  onChange = defaults.onChange,
-  locale = defaults.locale,
-  minDate,
-  maxDate,
-  renderDay,
-  className,
-  ...props
-}: CalendarProps) => {
-  const [viewedMonth, setViewedMonth] = useState<[year: number, month: number]>(
-    [new Date().getFullYear(), new Date().getMonth()]
-  );
-  const [yearPickerVisible, setYearPickerVisible] = useState<boolean>(false);
+const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
+  (
+    {
+      value,
+      onChange = defaults.onChange,
+      locale = defaults.locale,
+      minDate,
+      maxDate,
+      renderDay,
+      className,
+      ...props
+    },
+    ref
+  ) => {
+    const [viewedMonth, setViewedMonth] = useState<
+      [year: number, month: number]
+    >([new Date().getFullYear(), new Date().getMonth()]);
+    const [yearPickerVisible, setYearPickerVisible] = useState<boolean>(false);
 
-  const nextMonth = useCallback(
-      () =>
-        setViewedMonth(prev => [
-          prev[0] + (prev[1] > 10 ? 1 : 0),
-          prev[1] > 10 ? 0 : prev[1] + 1,
-        ]),
-      []
-    ),
-    prevMonth = useCallback(
-      () =>
-        setViewedMonth(prev => [
-          prev[0] - (prev[1] < 1 ? 1 : 0),
-          prev[1] < 1 ? 11 : prev[1] - 1,
-        ]),
+    const nextMonth = useCallback(
+        () =>
+          setViewedMonth(prev => [
+            prev[0] + (prev[1] > 10 ? 1 : 0),
+            prev[1] > 10 ? 0 : prev[1] + 1,
+          ]),
+        []
+      ),
+      prevMonth = useCallback(
+        () =>
+          setViewedMonth(prev => [
+            prev[0] - (prev[1] < 1 ? 1 : 0),
+            prev[1] < 1 ? 11 : prev[1] - 1,
+          ]),
 
-      []
+        []
+      );
+
+    const handleYearClick = useCallback(
+      (year: number) => {
+        setViewedMonth(prev => [
+          year,
+          minDate &&
+          new Date(year, prev[1] + 1, 0).getTime() < minDate.getTime()
+            ? minDate.getMonth()
+            : maxDate &&
+              new Date(year, prev[1], 1).getTime() > maxDate.getTime()
+            ? maxDate.getMonth()
+            : prev[1],
+        ]);
+        setYearPickerVisible(false);
+      },
+      [maxDate, minDate]
     );
 
-  const handleYearClick = useCallback(
-    (year: number) => {
-      setViewedMonth(prev => [
-        year,
-        minDate && new Date(year, prev[1] + 1, 0).getTime() < minDate.getTime()
-          ? minDate.getMonth()
-          : maxDate && new Date(year, prev[1], 1).getTime() > maxDate.getTime()
-          ? maxDate.getMonth()
-          : prev[1],
-      ]);
-      setYearPickerVisible(false);
-    },
-    [maxDate, minDate]
-  );
-
-  return (
-    <calendarContext.Provider
-      value={{
-        locale,
-        maxDate,
-        minDate,
-        onChange,
-        value,
-        viewedMonth,
-        yearPickerVisible,
-        renderDay: renderDay || defaults.renderDay(value),
-      }}
-    >
-      <div className={classNames(classes.calendar, className)} {...props}>
-        <CalendarHeader
-          onNextClick={nextMonth}
-          onPrevClick={prevMonth}
-          onYearPickerClick={() => setYearPickerVisible(prev => !prev)}
-        />
-        {yearPickerVisible ? (
-          <YearPicker
-            initialFirstItem={viewedMonth[0]}
-            onYearClick={handleYearClick}
+    return (
+      <calendarContext.Provider
+        value={{
+          locale,
+          maxDate,
+          minDate,
+          onChange,
+          value,
+          viewedMonth,
+          yearPickerVisible,
+          renderDay: renderDay || defaults.renderDay(value),
+        }}
+      >
+        <div
+          className={classNames(classes.calendar, className)}
+          ref={ref}
+          {...props}
+        >
+          <CalendarHeader
+            onNextClick={nextMonth}
+            onPrevClick={prevMonth}
+            onYearPickerClick={() => setYearPickerVisible(prev => !prev)}
           />
-        ) : (
-          <>
-            <CalendarDaysHeader />
-            <Month month={viewedMonth} />
-          </>
-        )}
-      </div>
-    </calendarContext.Provider>
-  );
-};
+          {yearPickerVisible ? (
+            <YearPicker
+              initialFirstItem={viewedMonth[0]}
+              onYearClick={handleYearClick}
+            />
+          ) : (
+            <>
+              <CalendarDaysHeader />
+              <Month month={viewedMonth} />
+            </>
+          )}
+        </div>
+      </calendarContext.Provider>
+    );
+  }
+);
+Calendar.displayName = 'Calendar';
 
 export default Calendar;
