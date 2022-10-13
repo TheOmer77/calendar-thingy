@@ -9,10 +9,11 @@ import {
 import classNames from 'classnames';
 import { FixedSizeList, ListOnScrollProps } from 'react-window';
 
+import YearButton from './YearButton';
 import calendarContext from '../utils/context';
+import defaults from '../utils/defaults';
 
 import defaultClasses from '../styles/index.module.css';
-import YearButton from './YearButton';
 
 export interface YearPickerProps {
   initialFirstItem: number;
@@ -28,11 +29,11 @@ export interface YearPickerProps {
 const YearPicker = ({
   initialFirstItem,
   onYearClick,
-  height = 196,
-  itemsPerRow = 3,
-  rowCount = 120,
-  rowHeight = 24,
-  rowScrollOffset = 40,
+  height = defaults.yearPickerProps.height,
+  itemsPerRow = defaults.yearPickerProps.itemsPerRow,
+  rowCount = defaults.yearPickerProps.rowCount,
+  rowHeight = defaults.yearPickerProps.rowHeight,
+  rowScrollOffset = defaults.yearPickerProps.rowScrollOffset,
   className,
 }: YearPickerProps) => {
   const {

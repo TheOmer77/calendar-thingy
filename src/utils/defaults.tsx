@@ -35,6 +35,13 @@ const defaults = {
         />
       ),
   classes: {} as CalendarClasses,
+  yearPickerProps: {
+    height: 196,
+    itemsPerRow: 3,
+    rowCount: 120,
+    rowHeight: 24,
+    rowScrollOffset: 40,
+  },
 };
 
 export default defaults;
