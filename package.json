@@ -2,7 +2,7 @@
   "name": "calendar-thingy",
   "private": true,
   "version": "0.0.0",
-  "main": "./dist/index.umd.js",
+  "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
