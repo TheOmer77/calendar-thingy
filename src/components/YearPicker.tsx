@@ -15,14 +15,22 @@ import calendarContext from '../utils/context';
 export interface YearPickerProps {
   initialFirstItem: number;
   onYearClick: (year: number) => void;
+  height?: number;
+  itemsPerRow?: number;
+  rowCount?: number;
+  rowHeight?: number;
+  rowScrollOffset?: number;
 }
 
-const itemsPerRow = 4,
+const YearPicker = ({
+  initialFirstItem,
+  onYearClick,
+  height = 168,
+  itemsPerRow = 3,
   rowCount = 120,
-  rowHeight = 52,
-  rowScrollOffset = 40;
-
-const YearPicker = ({ initialFirstItem, onYearClick }: YearPickerProps) => {
+  rowHeight = 24,
+  rowScrollOffset = 40,
+}: YearPickerProps) => {
   const {
     viewedMonth: [viewedYear],
     minDate,
@@ -62,12 +70,20 @@ const YearPicker = ({ initialFirstItem, onYearClick }: YearPickerProps) => {
         listRef.current?.scrollTo(scrollOffset + rowScrollOffset * rowHeight);
       }
     },
-    [firstItem, maxDate, minDate]
+    [
+      firstItem,
+      itemsPerRow,
+      maxDate,
+      minDate,
+      rowCount,
+      rowHeight,
+      rowScrollOffset,
+    ]
   );
 
   useEffect(() => {
     listRef.current?.scrollTo?.(rowScrollOffset * rowHeight);
-  }, []);
+  }, [rowHeight, rowScrollOffset]);
 
   return (
     <FixedSizeList
@@ -75,8 +91,8 @@ const YearPicker = ({ initialFirstItem, onYearClick }: YearPickerProps) => {
       className={classes['year-picker']}
       itemCount={rowCount}
       itemSize={rowHeight}
-      width={304}
-      height={280}
+      width='100%'
+      height={height}
       onScroll={handleScroll}
     >
       {({ index, style }) => (
