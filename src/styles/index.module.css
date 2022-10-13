@@ -9,8 +9,8 @@
 
 /* Buttons */
 
-.calendar-header,
-.calendar-header > .arrow-switcher,
+.header,
+.header > .arrow-switcher,
 .days-header,
 .week {
   display: flex;
@@ -18,7 +18,7 @@
 }
 
 /* Header - month/year switcher button, arrow buttons */
-.calendar-header {
+.header {
   width: 100%;
   justify-content: space-between;
   align-items: center;

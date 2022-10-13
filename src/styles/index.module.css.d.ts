@@ -1,6 +1,6 @@
 declare const styles: {
   readonly "arrow-switcher": string;
-  readonly "calendar-header": string;
+  readonly "header": string;
   readonly "calendar": string;
   readonly "day-label": string;
   readonly "day": string;
