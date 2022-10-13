@@ -12,6 +12,7 @@ import { FixedSizeList, ListOnScrollProps } from 'react-window';
 import calendarContext from '../utils/context';
 
 import defaultClasses from '../styles/index.module.css';
+import YearButton from './YearButton';
 
 export interface YearPickerProps {
   initialFirstItem: number;
@@ -113,11 +114,10 @@ const YearPicker = ({
               index * itemsPerRow +
               key;
             return (
-              // TODO: Extract this button into its own component
-              <button
-                key={key}
+              <YearButton
+                key={value}
+                value={value}
                 className={classNames(
-                  defaultClasses['year-button'],
                   classes?.yearButton,
                   viewedYear === value && classes?.yearSelected
                 )}
@@ -128,9 +128,7 @@ const YearPicker = ({
                   (maxDate &&
                     new Date(value, 0, 1).getTime() > maxDate.getTime())
                 }
-              >
-                {value}
-              </button>
+              />
             );
           })}
         </div>
