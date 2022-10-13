@@ -1,6 +1,7 @@
 import { createContext, ReactNode } from 'react';
 
 import type { CalendarClasses, CalendarMonth, DateRange } from '../types';
+import type { YearPickerProps } from '../components/YearPicker';
 import defaults from './defaults';
 
 interface ICalendarContext {
@@ -15,6 +16,10 @@ interface ICalendarContext {
   yearPickerVisible: boolean;
   renderDay?: (date: Date, dateInCurrentMonth?: boolean) => ReactNode;
   classes?: CalendarClasses;
+  yearPickerProps?: Omit<
+    YearPickerProps,
+    'initialFirstItem' | 'onYearClick' | 'className'
+  >;
 }
 
 const initialState: ICalendarContext = {

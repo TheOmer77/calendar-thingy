@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 
 import { Calendar, RangeCalendar } from '../src';
 import type { CalendarClasses } from '../src/types';
+import { YearPickerProps } from '../src/components/YearPicker';
 
 import '@fontsource/figtree/variable.css';
 import './App.css';
@@ -26,6 +27,17 @@ const calendarClasses: CalendarClasses = {
   yearPicker: classes['year-picker'],
   yearPickerRow: classes['year-picker-row'],
   yearSelected: classes['year-selected'],
+};
+
+const yearPickerProps: Omit<
+  YearPickerProps,
+  'className' | 'initialFirstItem' | 'onYearClick'
+> = {
+  height: 280,
+  itemsPerRow: 4,
+  rowCount: 120,
+  rowHeight: 52,
+  rowScrollOffset: 40,
 };
 
 const App = () => {
@@ -60,6 +72,7 @@ const App = () => {
           locale={locale}
           className={classes.calendar}
           classes={calendarClasses}
+          yearPickerProps={yearPickerProps}
         />
       </div>
       <div className='calendar-display'>
@@ -82,6 +95,7 @@ const App = () => {
           locale={locale}
           className={classes.calendar}
           classes={calendarClasses}
+          yearPickerProps={yearPickerProps}
         />
       </div>
     </>

@@ -10,6 +10,7 @@ import Calendar from './Calendar';
 import Day from './Day';
 import { getDateString } from '../utils/utils';
 import type { CalendarClasses, DateRange } from '../types';
+import type { YearPickerProps } from './YearPicker';
 
 import defaultClasses from '../styles/index.module.css';
 
@@ -25,6 +26,10 @@ export interface RangeCalendarProps
   minDate?: Date;
   maxDate?: Date;
   classes?: CalendarClasses;
+  yearPickerProps?: Omit<
+    YearPickerProps,
+    'className' | 'initialFirstItem' | 'onYearClick'
+  >;
 }
 
 const isFirstWeekday = (date: Date) => date.getDay() === 0,
@@ -48,6 +53,7 @@ const RangeCalendar = forwardRef<HTMLDivElement, RangeCalendarProps>(
       minDate,
       maxDate,
       classes,
+      yearPickerProps,
       className,
       ...props
     },
@@ -126,6 +132,7 @@ const RangeCalendar = forwardRef<HTMLDivElement, RangeCalendarProps>(
         minDate={minDate}
         maxDate={maxDate}
         classes={classes}
+        yearPickerProps={yearPickerProps}
         className={className}
         {...props}
       />

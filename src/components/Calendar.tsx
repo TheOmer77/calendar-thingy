@@ -11,7 +11,7 @@ import classNames from 'classnames';
 import CalendarDaysHeader from './DaysHeader';
 import CalendarHeader from './Header';
 import Month from './Month';
-import YearPicker from './YearPicker';
+import YearPicker, { YearPickerProps } from './YearPicker';
 import calendarContext from '../utils/context';
 import defaults from '../utils/defaults';
 import type { CalendarClasses, CalendarMonth } from '../types';
@@ -30,6 +30,10 @@ export interface CalendarProps
   maxDate?: Date;
   renderDay?: (date: Date, dateInCurrentMonth?: boolean) => ReactNode;
   classes?: CalendarClasses;
+  yearPickerProps?: Omit<
+    YearPickerProps,
+    'initialFirstItem' | 'onYearClick' | 'className'
+  >;
 }
 
 const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
@@ -42,6 +46,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
       maxDate,
       renderDay,
       classes = defaults.classes,
+      yearPickerProps,
       className,
       ...props
     },
@@ -100,6 +105,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
           yearPickerVisible,
           renderDay: renderDay || defaults.renderDay(classes, value),
           classes,
+          yearPickerProps,
         }}
       >
         <div
@@ -118,6 +124,11 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
               initialFirstItem={viewedMonth[0]}
               onYearClick={handleYearClick}
               className={classNames(classes.yearPicker)}
+              itemsPerRow={yearPickerProps?.itemsPerRow}
+              height={yearPickerProps?.height}
+              rowCount={yearPickerProps?.rowCount}
+              rowHeight={yearPickerProps?.rowHeight}
+              rowScrollOffset={yearPickerProps?.rowScrollOffset}
             />
           ) : (
             <>
