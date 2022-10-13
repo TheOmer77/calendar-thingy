@@ -16,10 +16,6 @@
   --color-text-on-primary--disabled: rgba(255, 255, 255, 0.5);
 
   width: 19rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 /* Buttons */
@@ -86,20 +82,8 @@
   color: var(--color-text-on-primary--disabled);
 }
 
-.header,
-.header > .arrow-switcher,
-.days-header,
-.week {
-  display: flex;
-  flex-direction: row;
-}
-
 /* Header - month/year switcher button, arrow buttons */
 .header {
-  width: 19rem;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
   padding: 0 0.5rem;
   box-sizing: border-box;
 }
@@ -123,21 +107,14 @@
 .days-header {
   color: var(--color-text--secondary);
 }
-.days-header,
-.week {
-  width: 19rem;
-  justify-content: flex-start;
-}
 .days-header > .day-label,
 .week > .day {
   width: 2.25rem;
   height: 2.25rem;
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0.125rem;
-  position: relative;
 }
 .days-header > .day-label:not(:last-child),
 .week > .day:not(:last-child) {
@@ -179,23 +156,7 @@
   width: 100%;
 }
 
-/* Year picker */
-.calendar .year-picker {
-  /* Hide scrollbar on firefox */
-  scrollbar-width: none;
-}
-.calendar .year-picker::-webkit-scrollbar {
-  /* Hide scrollbar on Chrome, Safari */
-  display: none;
-}
-.calendar .year-picker .year-picker-row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-}
 .calendar .year-picker .year-picker-row > .year-button {
-  flex: 1;
   height: 2.25rem;
   margin: 0 0.5rem;
 }
