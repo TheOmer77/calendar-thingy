@@ -1,12 +1,32 @@
 import { useMemo, useState } from 'react';
 
 import { Calendar, RangeCalendar } from '../src';
+import type { CalendarClasses } from '../src/types';
 
 import '@fontsource/figtree/variable.css';
 import './App.css';
+import classes from './Calendar.module.css';
 
 const today = new Date();
 const locale = 'en-US';
+
+const calendarClasses: CalendarClasses = {
+  arrowSwitcher: classes['arrow-switcher'],
+  day: classes.day,
+  dayEnd: classes['day-end'],
+  dayInRange: classes['day-in-range'],
+  dayLabel: classes['day-label'],
+  daySelected: classes['day-selected'],
+  daysHeader: classes['days-header'],
+  dayStart: classes['day-start'],
+  header: classes.header,
+  headerMonth: classes['header-month'],
+  week: classes.week,
+  yearButton: classes['year-button'],
+  yearPicker: classes['year-picker'],
+  yearPickerRow: classes['year-picker-row'],
+  yearSelected: classes['year-selected'],
+};
 
 const App = () => {
   // Calendar state
@@ -38,6 +58,8 @@ const App = () => {
           minDate={new Date(today.getTime() - 8640000000)}
           maxDate={new Date(today.getTime() + 8640000000)}
           locale={locale}
+          className={classes.calendar}
+          classes={calendarClasses}
         />
       </div>
       <div className='calendar-display'>
@@ -58,6 +80,8 @@ const App = () => {
           minDate={new Date(today.getTime() - 8640000000)}
           maxDate={new Date(today.getTime() + 8640000000)}
           locale={locale}
+          className={classes.calendar}
+          classes={calendarClasses}
         />
       </div>
     </>

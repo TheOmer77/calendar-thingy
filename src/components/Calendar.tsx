@@ -14,9 +14,9 @@ import Month from './Month';
 import YearPicker from './YearPicker';
 import calendarContext from '../utils/context';
 import defaults from '../utils/defaults';
-import type { CalendarMonth } from '../types';
+import type { CalendarClasses, CalendarMonth } from '../types';
 
-import classes from '../styles/index.module.css';
+import defaultClasses from '../styles/index.module.css';
 
 export interface CalendarProps
   extends Omit<
@@ -29,6 +29,7 @@ export interface CalendarProps
   minDate?: Date;
   maxDate?: Date;
   renderDay?: (date: Date, dateInCurrentMonth?: boolean) => ReactNode;
+  classes?: CalendarClasses;
 }
 
 const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
@@ -40,6 +41,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
       minDate,
       maxDate,
       renderDay,
+      classes = defaults.classes,
       className,
       ...props
     },
@@ -96,11 +98,12 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
           value,
           viewedMonth,
           yearPickerVisible,
-          renderDay: renderDay || defaults.renderDay(value),
+          renderDay: renderDay || defaults.renderDay(classes, value),
+          classes,
         }}
       >
         <div
-          className={classNames(classes.calendar, className)}
+          className={classNames(defaultClasses.calendar, className)}
           ref={ref}
           {...props}
         >
@@ -108,15 +111,17 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
             onNextClick={nextMonth}
             onPrevClick={prevMonth}
             onYearPickerClick={() => setYearPickerVisible(prev => !prev)}
+            className={classNames(classes.header)}
           />
           {yearPickerVisible ? (
             <YearPicker
               initialFirstItem={viewedMonth[0]}
               onYearClick={handleYearClick}
+              className={classNames(classes.yearPicker)}
             />
           ) : (
             <>
-              <CalendarDaysHeader />
+              <CalendarDaysHeader className={classNames(classes.daysHeader)} />
               <Month month={viewedMonth} />
             </>
           )}

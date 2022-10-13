@@ -9,13 +9,6 @@ declare const styles: {
   readonly "year-button": string;
   readonly "year-picker-row": string;
   readonly "year-picker": string;
-  // TODO: Remove the following classes as they will be provided by classes prop only
-  readonly "day-end": string;
-  readonly "day-in-range": string;
-  readonly "day-selected": string;
-  readonly "day-start": string;
-  readonly "month": string;
-  readonly "year-selected": string;
 };
 export = styles;
 

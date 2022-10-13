@@ -9,9 +9,9 @@ import classNames from 'classnames';
 import Calendar from './Calendar';
 import Day from './Day';
 import { getDateString } from '../utils/utils';
-import type { DateRange } from '../types';
+import type { CalendarClasses, DateRange } from '../types';
 
-import classes from '../styles/index.module.css';
+import defaultClasses from '../styles/index.module.css';
 
 export interface RangeCalendarProps
   extends Omit<
@@ -24,6 +24,7 @@ export interface RangeCalendarProps
   locale?: string;
   minDate?: Date;
   maxDate?: Date;
+  classes?: CalendarClasses;
 }
 
 const isFirstWeekday = (date: Date) => date.getDay() === 0,
@@ -46,6 +47,7 @@ const RangeCalendar = forwardRef<HTMLDivElement, RangeCalendarProps>(
       locale = 'en-US',
       minDate,
       maxDate,
+      classes,
       className,
       ...props
     },
@@ -106,20 +108,24 @@ const RangeCalendar = forwardRef<HTMLDivElement, RangeCalendarProps>(
               id={getDateString(date)}
               className={classNames(
                 renderRangeMarker(date) && [
-                  inDateRange(date) && classes['day-in-range'],
-                  isStartDate(date) && classes['day-start'],
-                  isEndDate(date) && classes['day-end'],
+                  inDateRange(date) && classes?.dayInRange,
+                  isStartDate(date) && classes?.dayStart,
+                  isEndDate(date) && classes?.dayEnd,
                 ]
               )}
             />
           ) : (
-            <span key={getDateString(date)} className={classes.day} />
+            <span
+              key={getDateString(date)}
+              className={classNames(defaultClasses.day, classes?.day)}
+            />
           )
         }
         locale={locale}
         onChange={handleDayClick}
         minDate={minDate}
         maxDate={maxDate}
+        classes={classes}
         className={className}
         {...props}
       />

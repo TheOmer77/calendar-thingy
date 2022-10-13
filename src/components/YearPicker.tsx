@@ -9,8 +9,9 @@ import {
 import classNames from 'classnames';
 import { FixedSizeList, ListOnScrollProps } from 'react-window';
 
-import classes from '../styles/index.module.css';
 import calendarContext from '../utils/context';
+
+import defaultClasses from '../styles/index.module.css';
 
 export interface YearPickerProps {
   initialFirstItem: number;
@@ -20,6 +21,7 @@ export interface YearPickerProps {
   rowCount?: number;
   rowHeight?: number;
   rowScrollOffset?: number;
+  className?: string;
 }
 
 const YearPicker = ({
@@ -30,11 +32,13 @@ const YearPicker = ({
   rowCount = 120,
   rowHeight = 24,
   rowScrollOffset = 40,
+  className,
 }: YearPickerProps) => {
   const {
     viewedMonth: [viewedYear],
     minDate,
     maxDate,
+    classes,
   } = useContext(calendarContext);
 
   const listRef = useRef<FixedSizeList>();
@@ -88,7 +92,7 @@ const YearPicker = ({
   return (
     <FixedSizeList
       ref={listRef as LegacyRef<FixedSizeList>}
-      className={classes['year-picker']}
+      className={classNames(defaultClasses['year-picker'], className)}
       itemCount={rowCount}
       itemSize={rowHeight}
       width='100%'
@@ -96,18 +100,26 @@ const YearPicker = ({
       onScroll={handleScroll}
     >
       {({ index, style }) => (
-        <div className={classes['year-picker-row']} style={style}>
+        <div
+          className={classNames(
+            defaultClasses['year-picker-row'],
+            classes?.yearPickerRow
+          )}
+          style={style}
+        >
           {[...Array(itemsPerRow).keys()].map(key => {
             const value =
               Math.floor(firstItem / itemsPerRow) * itemsPerRow +
               index * itemsPerRow +
               key;
             return (
+              // TODO: Extract this button into its own component
               <button
                 key={key}
                 className={classNames(
-                  classes['year-button'],
-                  viewedYear === value && classes['year-selected']
+                  defaultClasses['year-button'],
+                  classes?.yearButton,
+                  viewedYear === value && classes?.yearSelected
                 )}
                 onClick={() => onYearClick(value)}
                 disabled={

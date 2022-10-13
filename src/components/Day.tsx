@@ -8,7 +8,7 @@ import classNames from 'classnames';
 
 import calendarContext from '../utils/context';
 
-import classes from '../styles/index.module.css';
+import defaultClasses from '../styles/index.module.css';
 
 interface CalendarDayProps
   extends DetailedHTMLProps<
@@ -27,6 +27,7 @@ const Day = ({ date, selected, className, ...props }: CalendarDayProps) => {
     onEndDateChange,
     minDate,
     maxDate,
+    classes,
   } = useContext(calendarContext);
 
   const handleDayClick = useCallback(() => {
@@ -45,12 +46,14 @@ const Day = ({ date, selected, className, ...props }: CalendarDayProps) => {
   return (
     <button
       className={classNames(
-        classes.day,
-        selected && classes['day-selected'],
+        defaultClasses.day,
+        classes?.day,
+        selected && classes?.daySelected,
         className
       )}
       onClick={handleDayClick}
       disabled={(minDate && date < minDate) || (maxDate && date > maxDate)}
+      aria-pressed={selected}
       {...props}
     >
       {date.getDate()}

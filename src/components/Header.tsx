@@ -8,7 +8,7 @@ import classNames from 'classnames';
 
 import calendarContext from '../utils/context';
 
-import classes from '../styles/index.module.css';
+import defaultClasses from '../styles/index.module.css';
 
 interface CalendarHeaderProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
@@ -24,22 +24,30 @@ const CalendarHeader = ({
   className,
   ...props
 }: CalendarHeaderProps) => {
-  const { viewedMonth, locale, minDate, maxDate, yearPickerVisible } =
+  const { viewedMonth, locale, minDate, maxDate, yearPickerVisible, classes } =
     useContext(calendarContext);
 
   return (
     <div
-      className={classNames(classes['calendar-header'], className)}
+      className={classNames(defaultClasses['calendar-header'], className)}
       {...props}
     >
-      <button className={classes.month} onClick={onYearPickerClick}>
+      <button
+        className={classNames(classes?.headerMonth)}
+        onClick={onYearPickerClick}
+      >
         {Intl.DateTimeFormat(locale, {
           month: 'long',
           year: 'numeric',
         }).format(new Date(...viewedMonth))}
       </button>
       {!yearPickerVisible && (
-        <div className={classes['arrow-switcher']}>
+        <div
+          className={classNames(
+            defaultClasses['arrow-switcher'],
+            classes?.arrowSwitcher
+          )}
+        >
           <button
             onClick={onPrevClick}
             disabled={minDate && new Date(...viewedMonth, 0) < minDate}

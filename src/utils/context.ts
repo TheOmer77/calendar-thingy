@@ -1,6 +1,6 @@
 import { createContext, ReactNode } from 'react';
 
-import type { CalendarMonth, DateRange } from '../types';
+import type { CalendarClasses, CalendarMonth, DateRange } from '../types';
 import defaults from './defaults';
 
 interface ICalendarContext {
@@ -14,6 +14,7 @@ interface ICalendarContext {
   viewedMonth: CalendarMonth;
   yearPickerVisible: boolean;
   renderDay?: (date: Date, dateInCurrentMonth?: boolean) => ReactNode;
+  classes?: CalendarClasses;
 }
 
 const initialState: ICalendarContext = {
@@ -23,6 +24,7 @@ const initialState: ICalendarContext = {
   viewedMonth: defaults.viewedMonth,
   locale: defaults.locale,
   yearPickerVisible: defaults.yearPickerVisible,
+  classes: {},
 };
 
 const calendarContext = createContext<ICalendarContext>(initialState);
