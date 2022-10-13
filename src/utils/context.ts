@@ -1,6 +1,6 @@
 import { createContext, ReactNode } from 'react';
 
-import { DateRange } from '../components/RangeCalendar';
+import type { CalendarMonth, DateRange } from '../types';
 import defaults from './defaults';
 
 interface ICalendarContext {
@@ -11,7 +11,7 @@ interface ICalendarContext {
   locale: string;
   minDate?: Date;
   maxDate?: Date;
-  viewedMonth: [year: number, month: number];
+  viewedMonth: CalendarMonth;
   yearPickerVisible: boolean;
   renderDay?: (date: Date, dateInCurrentMonth?: boolean) => ReactNode;
 }

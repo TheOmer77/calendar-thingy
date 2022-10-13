@@ -9,10 +9,9 @@ import classNames from 'classnames';
 import Calendar from './Calendar';
 import Day from './Day';
 import { getDateString } from '../utils/utils';
+import type { DateRange } from '../types';
 
 import classes from '../styles/index.module.css';
-
-export type DateRange = [startDate?: Date, endDate?: Date];
 
 export interface RangeCalendarProps
   extends Omit<

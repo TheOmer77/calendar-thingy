@@ -1,10 +1,11 @@
 import { useMemo } from 'react';
 import { getDateString } from '../utils/utils';
+import type { CalendarMonth } from '../types';
 
 import Week from './Week';
 
 interface CalendarMonthProps {
-  month: [year: number, month: number];
+  month: CalendarMonth;
 }
 
 const Month = ({ month: [year, month] }: CalendarMonthProps) => {

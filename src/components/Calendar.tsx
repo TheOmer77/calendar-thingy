@@ -14,6 +14,7 @@ import Month from './Month';
 import YearPicker from './YearPicker';
 import calendarContext from '../utils/context';
 import defaults from '../utils/defaults';
+import type { CalendarMonth } from '../types';
 
 import classes from '../styles/index.module.css';
 
@@ -44,9 +45,10 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
     },
     ref
   ) => {
-    const [viewedMonth, setViewedMonth] = useState<
-      [year: number, month: number]
-    >([new Date().getFullYear(), new Date().getMonth()]);
+    const [viewedMonth, setViewedMonth] = useState<CalendarMonth>([
+      new Date().getFullYear(),
+      new Date().getMonth(),
+    ]);
     const [yearPickerVisible, setYearPickerVisible] = useState<boolean>(false);
 
     const nextMonth = useCallback(

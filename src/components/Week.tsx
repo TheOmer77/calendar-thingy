@@ -7,12 +7,13 @@ import {
 import classNames from 'classnames';
 
 import calendarContext from '../utils/context';
+import type { CalendarMonth } from '../types';
 
 import classes from '../styles/index.module.css';
 
 interface CalendarWeekProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-  month: [year: number, month: number];
+  month: CalendarMonth;
   days?: Date[];
 }
 
