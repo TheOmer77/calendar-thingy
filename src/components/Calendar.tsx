@@ -8,8 +8,8 @@ import {
 } from 'react';
 import classNames from 'classnames';
 
-import CalendarDaysHeader from './DaysHeader';
-import CalendarHeader from './Header';
+import DaysHeader from './DaysHeader';
+import Header from './Header';
 import Month from './Month';
 import YearPicker, { YearPickerProps } from './YearPicker';
 import calendarContext from '../utils/context';
@@ -113,7 +113,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
           ref={ref}
           {...props}
         >
-          <CalendarHeader
+          <Header
             onNextClick={nextMonth}
             onPrevClick={prevMonth}
             onYearPickerClick={() => setYearPickerVisible(prev => !prev)}
@@ -132,7 +132,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
             />
           ) : (
             <>
-              <CalendarDaysHeader className={classNames(classes.daysHeader)} />
+              <DaysHeader className={classNames(classes.daysHeader)} />
               <Month month={viewedMonth} />
             </>
           )}

@@ -17,7 +17,7 @@ interface CalendarHeaderProps
   onYearPickerClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
-const CalendarHeader = ({
+const Header = ({
   onNextClick,
   onPrevClick,
   onYearPickerClick,
@@ -65,5 +65,6 @@ const CalendarHeader = ({
     </div>
   );
 };
+Header.displayName = 'Header';
 
-export default CalendarHeader;
+export default Header;

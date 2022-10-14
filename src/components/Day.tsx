@@ -60,5 +60,6 @@ const Day = ({ date, selected, className, ...props }: CalendarDayProps) => {
     </button>
   );
 };
+Day.displayName = 'Day';
 
 export default Day;

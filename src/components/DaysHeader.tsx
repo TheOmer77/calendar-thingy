@@ -6,7 +6,7 @@ import { getWeekday } from '../utils/utils';
 
 import defaultClasses from '../styles/index.module.css';
 
-const CalendarDaysHeader = ({
+const DaysHeader = ({
   className,
   ...props
 }: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => {
@@ -28,5 +28,6 @@ const CalendarDaysHeader = ({
     </div>
   );
 };
+DaysHeader.displayName = 'DaysHeader';
 
-export default CalendarDaysHeader;
+export default DaysHeader;

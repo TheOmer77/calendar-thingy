@@ -37,5 +37,6 @@ const Week = ({
     </div>
   );
 };
+Week.displayName = 'Week';
 
 export default Week;

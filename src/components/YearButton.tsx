@@ -20,5 +20,6 @@ const YearButton = ({ value, className, ...props }: YearButtonProps) => (
     {value}
   </button>
 );
+YearButton.displayName = 'YearButton';
 
 export default YearButton;

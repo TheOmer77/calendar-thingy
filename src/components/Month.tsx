@@ -48,5 +48,6 @@ const Month = ({ month: [year, month] }: CalendarMonthProps) => {
     </>
   );
 };
+Month.displayName = 'Month';
 
 export default Month;

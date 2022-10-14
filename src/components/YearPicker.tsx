@@ -137,5 +137,6 @@ const YearPicker = ({
     </FixedSizeList>
   );
 };
+YearPicker.displayName = 'YearPicker';
 
 export default YearPicker;
