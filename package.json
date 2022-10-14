@@ -11,7 +11,16 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
+  },
+  "clean-package": {
+    "remove": [
+      "clean-package",
+      "devDependencies",
+      "scripts"
+    ]
   },
   "dependencies": {
     "classnames": "^2.3.2",
@@ -30,6 +39,7 @@
     "@typescript-eslint/eslint-plugin": "^5.39.0",
     "@typescript-eslint/parser": "^5.39.0",
     "@vitejs/plugin-react": "^2.1.0",
+    "clean-package": "^2.1.1",
     "eslint": "^8.25.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-typescript": "^3.5.1",
