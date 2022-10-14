@@ -15,9 +15,11 @@
   },
   "dependencies": {
     "classnames": "^2.3.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "react-window": "^1.8.7"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0"
   },
   "devDependencies": {
     "@fontsource/figtree": "^4.5.1",
@@ -37,6 +39,8 @@
     "eslint-plugin-react": "^7.31.9",
     "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^2.7.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "typescript": "^4.8.4",
     "vite": "^3.1.7",
     "vite-plugin-checker": "^0.5.1",
