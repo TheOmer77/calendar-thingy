@@ -1,3 +1,6 @@
+node_modules
+*.local
+
 # Logs
 logs
 *.log
@@ -7,10 +10,10 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
+# Build
 dist
 dist-ssr
-*.local
+*.tgz
 
 # Editor directories and files
 .vscode/*
